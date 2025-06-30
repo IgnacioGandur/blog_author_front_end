@@ -1,0 +1,50 @@
+.fetch-error {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-medium);
+    justify-content: center;
+    align-items: center;
+    padding: var(--size-medium);
+
+    .title {
+        display: flex;
+        align-items: center;
+        gap: var(--size-small);
+        flex-direction: column;
+
+        h1 {
+            text-align: center;
+            font-family: var(--font-titles);
+            font-size: var(--font-size-very-big);
+        }
+
+        .error-code {
+            font-size: var(--font-size-very-big);
+            color: var(--color-error);
+            font-weight: var(--font-very-thick);
+            font-family: var(--font-titles);
+        }
+
+        .error-type {
+            font-size: var(--font-size-big);
+            font-weight: var(--font-thick);
+            font-family: var(--font-titles);
+        }
+    }
+
+    svg {
+        width: 25%;
+        height: fit-content;
+    }
+
+    .message {
+        font-weight: var(--font-thick);
+        font-size: var(--font-size-medium);
+        font-family: var(--font-titles);
+    }
+
+    .link {
+        color: var(--color-font);
+        font-weight: var(--font-thick);
+    }
+}

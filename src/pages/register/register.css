@@ -1,0 +1,59 @@
+.register {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-medium);
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-small);
+        width: fit-content;
+
+        fieldset {
+            display: flex;
+            flex-direction: column;
+            padding: var(--size-small);
+            border: 1px solid var(--color-main-dimmed);
+
+            legend {
+                padding: calc(var(--size-small) / 2) var(--size-small);
+                border: 1px solid var(--color-main-dimmed);
+                background-color: var(--color-main-dimmed-2);
+                font-weight: var(--font-thick);
+            }
+
+            .wrapper {
+                display: flex;
+                gap: var(--size-small);
+                align-items: center;
+            }
+        }
+
+        .password-tester {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+
+            .pass-message {
+                text-align: center;
+                font-weight: var(--font-thick);
+            }
+        }
+
+        .password-tester:has(.dont-match) {
+            background-color: var(--color-error-dimmed);
+        }
+
+        .password-tester:has(.waiting) {
+            background-color: var(--color-main-dimmed-2);
+        }
+
+        .password-tester:has(.match) {
+            background-color: var(--color-success-dimmed);
+        }
+    }
+}

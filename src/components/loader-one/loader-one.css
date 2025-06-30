@@ -1,0 +1,13 @@
+.loader-one {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-small);
+    align-items: center;
+    justify-content: center;
+
+    .loading-message {
+        font-weight: var(--font-very-thick);
+        font-size: var(--font-size-medium);
+        font-family: var(--font-titles);
+    }
+}

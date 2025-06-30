@@ -1,0 +1,14 @@
+.logout-loader {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-medium);
+
+    .message {
+        font-weight: var(--font-thick);
+        font-family: var(--font-titles);
+        font-size: var(--font-size-medium);
+    }
+}

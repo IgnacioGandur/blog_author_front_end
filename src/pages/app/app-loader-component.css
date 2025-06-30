@@ -1,0 +1,14 @@
+.app-loader {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-small);
+  flex-direction: column;
+
+  .message {
+    font-weight: var(--font-thick);
+    font-family: var(--font-titles);
+    font-size: var(--font-size-medium);
+  }
+}

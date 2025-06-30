@@ -1,0 +1,79 @@
+.custom-input {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    padding: .5em;
+    font-weight: 600;
+
+    .input-and-icon {
+        display: flex;
+        gap: .5em;
+        padding: .5em;
+        border: 1px solid var(--color-main-dimmed);
+        transition: var(--transition-fast);
+
+        .icon {
+            font-size: 2rem;
+        }
+
+        .vertical-separator {
+            min-height: 100%;
+            width: 1px;
+            min-width: 1px;
+            background-color: var(--color-main-dimmed);
+        }
+
+        .input {
+            flex: 1;
+            background-color: transparent;
+            border: none;
+            color: var(--color-font);
+            font-size: 1.05rem;
+            padding: .5em 1em;
+            outline: none;
+        }
+
+        .toggle-password-visibility-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border: 1px solid var(--color-main-dimmed);
+            padding: var(--size-very-small);
+            transition: var(--transition-linear);
+
+            span {
+                color: var(--color-font);
+            }
+        }
+
+        .toggle-password-visibility-button.round-borders {
+            border-radius: var(--rounding-small);
+        }
+
+        .toggle-password-visibility-button:hover,
+        .toggle-password-visibility-button:focus,
+        .toggle-password-visibility-button:focus-visible {
+            outline: 2px solid var(--color-main);
+        }
+
+    }
+
+    .input-and-icon.round-borders {
+        border-radius: 10px;
+    }
+
+    .input-and-icon:has(input:focus),
+    .input-and-icon:has(input:hover),
+    .input-and-icon:has(input:focus-visible) {
+        background-color: var(--color-main-dimmed-2);
+        border: 1px solid var(--color-main);
+    }
+
+    .input-and-icon:has(input:focus),
+    .input-and-icon:has(input:focus-visible) {
+        outline: 2px solid var(--color-main);
+    }
+
+}

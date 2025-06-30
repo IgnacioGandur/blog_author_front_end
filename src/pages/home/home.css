@@ -1,0 +1,41 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: var(--size-small);
+
+    .welcome-hero {
+        display: flex;
+        position: relative;
+        flex: 1;
+        height: 50dvh;
+        min-height: 450px;
+        max-height: 850px;
+        overflow: hidden;
+        border-radius: var(--rounding-small);
+
+        .image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .welcome-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-image: linear-gradient(45deg, #00000055, #00000055);
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

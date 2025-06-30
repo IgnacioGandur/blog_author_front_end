@@ -1,0 +1,22 @@
+.input-errors {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-small);
+    background-color: var(--color-error-dimmed);
+    padding: var(--size-medium);
+    border: 1px solid var(--color-error);
+
+    .message {
+        font-weight: var(--font-thick);
+        text-align: center;
+    }
+
+    .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-very-small);
+        align-items: center;
+    }
+}
