@@ -9,8 +9,8 @@
         position: relative;
         flex: 1;
         height: 50dvh;
-        min-height: 450px;
-        max-height: 850px;
+        min-height: 250px;
+        max-height: 500px;
         overflow: hidden;
         border-radius: var(--rounding-small);
 

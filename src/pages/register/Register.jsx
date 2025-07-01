@@ -19,6 +19,7 @@ export default function Register() {
     lastName: "",
     username: "",
     password: "",
+    profilePictureUrl: "",
     confirmPassword: "",
   })
 
@@ -143,7 +144,7 @@ export default function Register() {
         </div>
       </fieldset>
       <fieldset className="password-tester">
-        <legend>Passwords Tester</legend>
+        <legend>Passwords tester</legend>
         {userInputs.password !== userInputs.confirmPassword && (<p className="pass-message dont-match">The passwords don't match.</p>)}
         {userInputs.password === "" && userInputs.confirmPassword === ""
           ? (<p className="pass-message waiting">Waiting for passwords to change...</p>)

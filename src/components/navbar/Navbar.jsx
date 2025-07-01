@@ -1,10 +1,12 @@
 import "./navbar.css";
+import { useState, useEffect } from "react";
 import {
     NavLink,
     useRouteLoaderData,
 } from "react-router";
 
 export default function Navbar() {
+    const [showProfileOptions, setShowProfileOptions] = useState(false);
     const data = useRouteLoaderData("root");
 
     const links = [
@@ -21,6 +23,28 @@ export default function Navbar() {
             text: "About",
         },
     ];
+
+    function toggleProfileOptions() {
+        setShowProfileOptions(prevState => !prevState);
+    }
+
+    // Handle escape key pressing to deselect/unfocus links.
+    useEffect(() => {
+        function handleEscapeKey(e) {
+            if (e.key === "Escape") {
+                if (document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                    setShowProfileOptions(false);
+                }
+            }
+        }
+
+        document.addEventListener("keydown", handleEscapeKey);
+
+        return () => {
+            document.removeEventListener("keydown", handleEscapeKey);
+        }
+    }, [showProfileOptions])
 
     return <nav className="navbar">
         <div className="logo">
@@ -42,13 +66,41 @@ export default function Navbar() {
                 </NavLink>
             })}
         </div>
+        {/* TODO: fix this button's style. */}
         {data && data.success ? (
-            <NavLink
-                className="link"
-                to="/logout"
+            <button
+                onClick={toggleProfileOptions}
+                className="logged-options"
             >
-                Logout
-            </NavLink>
+                <div className="ppf-username">
+                    <div className="ppf-wrapper">
+                        <img
+                            className="profile-picture"
+                            src={data.user.profilePictureUrl}
+                            alt="User profile picture"
+                        />
+                    </div>
+                    <span className="username">
+                        {data.user.firstName} {data.user.lastName}
+                    </span>
+                </div>
+                {showProfileOptions && (
+                    <div className="options">
+                        <NavLink
+                            className="option"
+                            to="/profile"
+                        >
+                            Profile
+                        </NavLink>
+                        <NavLink
+                            className="option"
+                            to="/logout"
+                        >
+                            Logout
+                        </NavLink>
+                    </div>
+                )}
+            </button>
         ) : (
             <div className="sign-links">
                 <NavLink

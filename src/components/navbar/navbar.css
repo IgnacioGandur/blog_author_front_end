@@ -62,22 +62,83 @@
         }
     }
 
-    .logged-links {
-        .link {
-            text-decoration: none;
-            padding: var(--size-small) calc(var(--size-small) * 2);
-            border: 1px solid var(--color-main-dimmed);
-            color: var(--color-font);
-            font-weight: var(--font-thick);
-            border-radius: var(--rounding-small);
-            transition: var(--transition-fast);
+    .logged-options {
+        background-color: transparent;
+        padding: var(--size-small);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border: none;
+        cursor: pointer;
+
+        .ppf-username {
+            display: flex;
+            gap: var(--size-small);
+            align-items: center;
+
+            .ppf-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: var(--rounding-total);
+                overflow: hidden;
+
+                .profile-picture {
+                    width: 40px;
+                    height: 40px;
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+
+            .username {
+                font-weight: var(--font-thick);
+                color: var(--color-font);
+                text-transform: capitalize;
+                font-size: var(--font-size-small);
+            }
         }
 
-        .link:hover,
-        .link:focus,
-        .link:focus-visible {
-            background-color: var(--color-main-dimmed);
-            border: 1px solid var(--color-main);
+        .options {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-background);
+            border-radius: var(--rounding-small);
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 75%);
+            width: 100%;
+            overflow: hidden;
+            gap: 0;
+
+            .option {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: var(--size-small);
+                font-weight: var(--font-thick);
+                color: var(--color-font);
+                text-decoration: none;
+                border: 2px solid transparent;
+            }
+
+            .option:hover,
+            .option:focus,
+            .option:focus-visible {
+                background-color: var(--color-main-dimmed);
+                border: 2px solid var(--color-main);
+            }
+        }
+    }
+
+    .logged-options:hover,
+    .logged-options:focus,
+    .logged-options:focus-visible {
+        .ppf-username {
+            .username {
+                text-decoration: underline;
+            }
         }
     }
 

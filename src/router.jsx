@@ -1,14 +1,20 @@
 import { createBrowserRouter } from "react-router";
+
+// Pages
 import App from "./pages/app/App.jsx";
 import Home from "./pages/home/Home.jsx";
 import Register from "./pages/register/Register.jsx";
 import Login from "./pages/login/Login.jsx";
 import Posts from "./pages/posts/Posts.jsx";
 import About from "./pages/about/About.jsx";
-import appLoader from "./pages/app/appLoader.jsx";
-import AppLoaderComponent from "./pages/app/AppLoaderComponent.jsx";
-import redirectIfLoggedLoader from "./loaders/redirectIfLogged.js";
 import Logout from "./pages/logout/Logout.jsx";
+
+// Loaders
+import AppLoaderComponent from "./pages/app/AppLoaderComponent.jsx";
+import appLoader from "./pages/app/appLoader.jsx";
+import redirectIfLoggedLoader from "./loaders/redirectIfLogged.js";
+
+// Actions
 import registerAction from "./pages/register/registerAction.js";
 import loginAction from "./pages/login/loginAction.js";
 

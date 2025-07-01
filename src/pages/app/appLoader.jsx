@@ -13,9 +13,6 @@ export default async function appLoader() {
     };
 
     const response = await fetch(fetchUrl, fetchOptions);
-
-    console.log(" the content of response in the app loader is:", response);
-
     const result = await response.json();
 
     return result;
