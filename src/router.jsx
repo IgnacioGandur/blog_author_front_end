@@ -8,11 +8,15 @@ import Login from "./pages/login/Login.jsx";
 import Posts from "./pages/posts/Posts.jsx";
 import About from "./pages/about/About.jsx";
 import Logout from "./pages/logout/Logout.jsx";
+import CreatePost from "./pages/create-post/CreatePost.jsx";
+import Protected from "./pages/protected/Protected.jsx";
+import ServerError from "./pages/server-error/ServerError.jsx";
 
 // Loaders
 import AppLoaderComponent from "./pages/app/AppLoaderComponent.jsx";
 import appLoader from "./pages/app/appLoader.jsx";
 import redirectIfLoggedLoader from "./loaders/redirectIfLogged.js";
+import checkIfUserIsAuthor from "./loaders/checkIfUserIsAuthor.js";
 
 // Actions
 import registerAction from "./pages/register/registerAction.js";
@@ -39,6 +43,16 @@ const router = createBrowserRouter(
           path: "/about",
           Component: About
         },
+        {
+          path: "/create-post",
+          Component: CreatePost,
+          loader: checkIfUserIsAuthor
+        },
+        // Route protector
+        {
+          path: "/protected",
+          Component: Protected
+        },
         // Auth routes
         {
           path: "/register",
@@ -52,12 +66,17 @@ const router = createBrowserRouter(
           loader: redirectIfLoggedLoader,
           action: loginAction,
         },
+        // Server error
+        {
+          path: "/server-error",
+          Component: ServerError
+        }
       ]
     },
     {
       path: "/logout",
       Component: Logout
-    }
+    },
   ]
 );
 

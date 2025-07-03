@@ -66,7 +66,6 @@ export default function Navbar() {
                 </NavLink>
             })}
         </div>
-        {/* TODO: fix this button's style. */}
         {data && data.success ? (
             <button
                 onClick={toggleProfileOptions}
@@ -98,6 +97,14 @@ export default function Navbar() {
                         >
                             Logout
                         </NavLink>
+                        {data.user.isAuthor && (
+                            <NavLink
+                                className="option"
+                                to="/create-post"
+                            >
+                                Create Post
+                            </NavLink>
+                        )}
                     </div>
                 )}
             </button>

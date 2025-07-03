@@ -1,0 +1,46 @@
+.footer {
+    padding: var(--size-small);
+    background-color: var(--color-background);
+    padding-top: 0;
+
+    .wrapper {
+        padding: var(--size-small);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--size-small);
+        border-radius: var(--rounding-small);
+        background-color: var(--color-black);
+
+        .goodbye-message {
+            display: flex;
+            flex-direction: column;
+            gap: var(--size-medium);
+
+            .icon-name {
+                display: flex;
+                align-items: center;
+                gap: var(--size-small);
+
+                .icon {
+                    font-size: 5rem;
+                }
+
+                .name {
+                    font-size: var(--font-size-medium);
+                    font-family: var(--font-main);
+                    font-weight: var(--font-thick);
+                }
+            }
+
+            .message {
+                max-width: 50%;
+                font-family: var(--font-main);
+                opacity: .6;
+            }
+
+            .year {
+                font-weight: var(--font-thick);
+            }
+        }
+    }
+}

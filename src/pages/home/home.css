@@ -7,35 +7,278 @@
     .welcome-hero {
         display: flex;
         position: relative;
-        flex: 1;
+        flex: 2;
         height: 50dvh;
-        min-height: 250px;
-        max-height: 500px;
+        min-height: 700px;
         overflow: hidden;
         border-radius: var(--rounding-small);
+        background-color: #000000;
 
-        .image {
+        .bg {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            object-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+
+            .text {
+                font-family: var(--font-special);
+                font-size: 5rem;
+                color: var(--color-main);
+                user-select: none;
+
+                .blinking {
+                    animation: blink 1.5s step-start infinite;
+                }
+            }
         }
 
         .welcome-content {
             display: flex;
-            align-items: center;
-            justify-content: center;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-image: linear-gradient(45deg, #00000055, #00000055);
             width: 100%;
             height: 100%;
+
+            .wrapper {
+                flex: 1;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+
+                >* {
+                    padding: var(--size-medium);
+                }
+
+                .welcome-message {
+                    display: flex;
+                    flex-direction: column;
+                    gap: var(--size-minimum);
+
+                    .welcome {
+                        font-size: var(--font-size-very-big);
+                        font-family: var(--font-titles);
+                        font-weight: var(--font-thin);
+                    }
+
+                    .sub-title {
+                        font-size: var(--font-size-medium);
+                        font-family: var(--font-titles);
+                        opacity: .75;
+                    }
+                }
+
+                .owner {
+                    display: flex;
+                    align-items: center;
+                    gap: var(--size-small);
+
+                    .argentina-flag {
+                        width: 75px;
+                        height: 75px;
+                        border-radius: var(--rounding-total);
+                        object-fit: cover;
+                        object-position: center;
+                    }
+
+                    .text {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-end;
+                        align-items: center;
+
+
+                        .sub-title {
+                            opacity: .75;
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    .grid {
+        flex: 1;
+        min-height: 550px;
+        border-radius: var(--rounding-small);
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 1fr 1fr;
+        gap: var(--size-small);
+
+        >* {
+            border-radius: var(--rounding-small);
+            overflow: hidden;
+        }
+
+        .tools-used {
+            grid-column: 1/2;
+            grid-row: 1/2;
+            position: relative;
+
+            .image {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .wrapper {
+                background-color: #00000099;
+                z-index: 10;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                padding: var(--size-small);
+                justify-content: space-between;
+
+                .icon {
+                    padding: var(--size-minimum);
+                    border-radius: var(--rounding-small);
+                    background-color: var(--color-white-dimmed-2);
+                    font-size: 2rem;
+                    width: fit-content;
+                }
+
+                .title {
+                    font-size: var(--font-size-big);
+                    font-family: var(--font-main);
+                    font-weight: 700;
+                }
+
+                .description {
+                    opacity: .75;
+                    width: 50%;
+                    font-weight: var(--font-thick);
+                }
+
+                .button {
+                    display: flex;
+                    align-items: center;
+                    background-color: var(--color-font);
+                    border-radius: var(--rounding-medium);
+                    color: var(--color-font-black);
+                    text-decoration: none;
+                    width: fit-content;
+                    font-weight: 900;
+                    font-size: var(--font-size-small);
+                    gap: var(--size-small);
+                    padding: var(--size-very-small) calc(var(--size-very-small)*2);
+
+                    span {
+                        font-variation-settings: "FILL" 1;
+                        font-weight: 900;
+                    }
+                }
+            }
+        }
+
+        .posts-counter {
+            grid-column: 1 /2;
+            grid-row: 2 /3;
+            display: flex;
+            position: relative;
+
+            img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .overlay {
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+                background-image: linear-gradient(#00000099, #00000099);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                padding: var(--size-small);
+
+                p {}
+
+                span {
+                    font-size: var(--font-size-very-big);
+                }
+
+                .icon {
+                    font-size: 2rem;
+                    background-color: var(--color-white-dimmed-2);
+                    padding: var(--size-minimum);
+                    width: fit-content;
+                    border-radius: var(--rounding-small);
+                    position: absolute;
+                    top: var(--size-very-small);
+                    left: var(--size-very-small);
+                }
+            }
+        }
+
+        div:last-of-type {
+            grid-column: 2/3;
+            grid-row: 1 /-1;
+            position: relative;
+
+            .image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+                background-color: #00000055;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .content {
+                    width: 75%;
+                    font-size: var(--font-size-big);
+                    padding: var(--size-small);
+                }
+
+                .icon {
+                    width: fit-content;
+                    font-size: 2rem;
+                    background-color: var(--color-white-dimmed-2);
+                    border-radius: var(--rounding-small);
+                    padding: var(--size-minimum);
+                    position: absolute;
+                    top: var(--size-very-small);
+                    left: var(--size-very-small);
+                }
+            }
+        }
+    }
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
     }
 }
