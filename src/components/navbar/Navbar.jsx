@@ -9,16 +9,40 @@ export default function Navbar() {
     const [showProfileOptions, setShowProfileOptions] = useState(false);
     const data = useRouteLoaderData("root");
 
-    const links = [
+    const links = data.user?.isAuthor ? [
         {
+            icon: "chair",
             path: "/",
             text: "Home",
         },
         {
+            icon: "home_storage",
             path: "/posts",
             text: "Posts",
         },
         {
+            icon: "dashboard_2",
+            path: "/dashboard",
+            text: "Dashboard",
+        },
+        {
+            icon: "lightbulb_2",
+            path: "/about",
+            text: "About",
+        },
+    ] : [
+        {
+            icon: "chair",
+            path: "/",
+            text: "Home",
+        },
+        {
+            icon: "home_storage",
+            path: "/posts",
+            text: "Posts",
+        },
+        {
+            icon: "lightbulb_2",
             path: "/about",
             text: "About",
         },
@@ -62,7 +86,12 @@ export default function Navbar() {
                     className={({ isActive }) => isActive ? "active link" : "link"}
                     to={link.path}
                 >
-                    {link.text}
+                    <span className="material-symbols-rounded icon">
+                        {link.icon}
+                    </span>
+                    <span className="text">
+                        {link.text}
+                    </span>
                 </NavLink>
             })}
         </div>
@@ -97,14 +126,6 @@ export default function Navbar() {
                         >
                             Logout
                         </NavLink>
-                        {data.user.isAuthor && (
-                            <NavLink
-                                className="option"
-                                to="/create-post"
-                            >
-                                Create Post
-                            </NavLink>
-                        )}
                     </div>
                 )}
             </button>

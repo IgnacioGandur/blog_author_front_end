@@ -1,0 +1,130 @@
+.edit-post {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-small);
+    min-height: 100vh;
+    padding: var(--size-small);
+
+    .title {
+        text-align: center;
+    }
+
+    .updated-message.success {
+        padding: var(--size-medium);
+        background-color: var(--color-success-dimmed);
+        border: 1px solid var(--color-success);
+        font-weight: var(--font-thick);
+        text-align: center;
+    }
+
+    .form {
+        display: flex;
+        gap: var(--size-small);
+        flex: 1;
+
+        .inputs-and-categories {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: var(--size-small);
+
+            .categories-fieldset:last-of-type {
+                margin-top: auto;
+
+                .categories {
+                    display: flex;
+                    gap: var(--size-small);
+                    flex-wrap: wrap;
+
+                    .category {
+                        border: 1px solid var(--color-main);
+                        padding: var(--size-small);
+                        position: relative;
+                        text-transform: capitalize;
+                        font-weight: var(--font-thick);
+                        transition: var(--transition-fast);
+
+                        .checkbox {
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            opacity: 0;
+                            text-wrap: nowrap;
+                        }
+                    }
+
+                    .category:has(.checkbox:checked) {
+                        background-color: var(--color-main);
+                    }
+                }
+            }
+
+            .toggle-published-status {
+                display: flex;
+                flex-direction: column;
+                gap: var(--size-small);
+                padding: var(--size-medium);
+
+                label {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    font-weight: var(--font-thick);
+
+                    input[type="checkbox"] {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                .status {
+                    font-weight: var(--font-thick);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .wrapper {
+                        display: flex;
+                        align-items: center;
+                        gap: var(--size-minimum);
+                    }
+                }
+            }
+        }
+
+        .post-content {
+            flex: 5;
+            display: flex;
+
+            fieldset {
+                display: flex;
+                width: 100%;
+                height: 100%;
+
+                .markdown-editor {
+                    flex: 1;
+                    height: 100% !important;
+                }
+            }
+        }
+
+        .inputs-and-categories,
+        .post-content {
+            fieldset {
+                border: 1px solid var(--color-main);
+                padding: var(--size-small);
+
+                legend {
+                    font-weight: var(--font-thick);
+                    padding: var(--size-small);
+                    border: 1px solid var(--color-main);
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}

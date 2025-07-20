@@ -1,0 +1,20 @@
+.unauthorized-post-edition {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-big);
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .title {
+        font-size: var(--font-size-very-big);
+    }
+
+    .sub-title {
+        font-size: var(--font-size-medium);
+    }
+
+    .image {
+        width: 17%;
+    }
+}

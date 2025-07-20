@@ -1,7 +1,5 @@
 export default async function appLoader() {
   try {
-    await new Promise(resolve => setTimeout(resolve, 1250));
-
     const fetchUrl = "http://localhost:3000/api/users/me";
     const fetchOptions = {
       method: "GET",

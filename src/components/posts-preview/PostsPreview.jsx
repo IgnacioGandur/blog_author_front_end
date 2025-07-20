@@ -1,242 +1,106 @@
 import "./posts-preview.css";
-import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { format } from "date-fns";
-import { MoonLoader } from "react-spinners";
-import Button from "../button/Button";
+import PostsLoader from "./PostsLoader";
 
 export default function PostsPreview({
-    title
+    fetchError,
+    posts,
+    isLoading,
+    linkPath,
+    showPublishedStatus,
+    showPostsAuthor,
+    amountOfPostsToLoad,
+    forEditing = false
 }) {
-    const [posts, setPosts] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [fetchError, setFetchError] = useState(null);
-
-    function tryAgain() {
-        setFetchError(null);
-    }
-
-    useEffect(() => {
-        async function fetchPosts() {
-            try {
-                setIsLoading(true);
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                const fetchUrl = "http://localhost:3000/api/posts";
-                const response = await fetch(fetchUrl);
-                const result = await response.json();
-
-                if (result.success) {
-                    setPosts(result.posts);
-                } else {
-                    setFetchError("Posts couldn't be retrieved.");
-                }
-
-            } catch (error) {
-                setFetchError("There seems to be an error in the app's backend, please try again later...");
-            } finally {
-                setIsLoading(false);
-            }
-        }
-
-        fetchPosts();
-    }, [fetchError]);
-
-    if (fetchError) {
-        return <div className="posts-preview">
-            {title ? (
-                <h2>{title}</h2>
-            ) : null}
-            <div className="error">
-                <p className="message">
-                    {fetchError}
-                </p>
-                <Button onClick={tryAgain}>
-                    Try again
-                </Button>
-            </div>
-        </div>
-    }
-
-    if (isLoading) {
-        return <div className="posts-preview">
-            <h2>Fetching posts</h2>
-            <div className="posts-container">
-                <div className="post-loader">
-                    <div className="image">
-                        <MoonLoader color="#7678ed" />
-                    </div>
-                    <span className="date">
+    return fetchError ? (
+        <p className="fetch-error">
+            There seems to be a problem with the app's backend. The app was not able to retrieve the posts...
+        </p>
+    ) : isLoading ? (
+        <PostsLoader
+            postsNumber={amountOfPostsToLoad}
+        />
+    ) : posts.length > 0 ? (
+        <section className="posts-preview">
+            {posts.map((post) => {
+                return <NavLink
+                    to={forEditing ? `${linkPath}/${post.id}/edit` : `${linkPath}/${post.id}`}
+                    key={post.id}
+                    className="post-preview"
+                >
+                    <span className="main-category">
+                        {post.categories[0].name}
                     </span>
-                    <div className="text">
-                        <div className="title">
-                        </div>
-                        <div className="description">
-                        </div>
-                    </div>
-                    <div className="likes-comments">
-                        <div className="likes">
-                        </div>
-                        <div className="comments">
-                        </div>
-                    </div>
-                    <div className="author">
-                        <div className="profile-picture"></div>
-                        <div className="name"></div>
-                    </div>
-                </div>
-                <div className="post-loader">
-                    <div className="image">
-                        <MoonLoader color="#7678ed" />
-                    </div>
-                    <span className="date">
-                    </span>
-                    <div className="text">
-                        <div className="title">
-                        </div>
-                        <div className="description">
-                        </div>
-                    </div>
-                    <div className="likes-comments">
-                        <div className="likes">
-                        </div>
-                        <div className="comments">
-                        </div>
-                    </div>
-                    <div className="author">
-                        <div className="profile-picture"></div>
-                        <div className="name"></div>
-                    </div>
-                </div>
-                <div className="post-loader">
-                    <div className="image">
-                        <MoonLoader color="#7678ed" />
-                    </div>
-                    <span className="date">
-                    </span>
-                    <div className="text">
-                        <div className="title">
-                        </div>
-                        <div className="description">
-                        </div>
-                    </div>
-                    <div className="likes-comments">
-                        <div className="likes">
-                        </div>
-                        <div className="comments">
-                        </div>
-                    </div>
-                    <div className="author">
-                        <div className="profile-picture"></div>
-                        <div className="name"></div>
-                    </div>
-                </div>
-                <div className="post-loader">
-                    <div className="image">
-                        <MoonLoader color="#7678ed" />
-                    </div>
-                    <span className="date">
-                    </span>
-                    <div className="text">
-                        <div className="title">
-                        </div>
-                        <div className="description">
-                        </div>
-                    </div>
-                    <div className="likes-comments">
-                        <div className="likes">
-                        </div>
-                        <div className="comments">
-                        </div>
-                    </div>
-                    <div className="author">
-                        <div className="profile-picture"></div>
-                        <div className="name"></div>
-                    </div>
-                </div>
-                <div className="post-loader">
-                    <div className="image">
-                        <MoonLoader color="#7678ed" />
-                    </div>
-                    <span className="date">
-                    </span>
-                    <div className="text">
-                        <div className="title">
-                        </div>
-                        <div className="description">
-                        </div>
-                    </div>
-                    <div className="likes-comments">
-                        <div className="likes">
-                        </div>
-                        <div className="comments">
-                        </div>
-                    </div>
-                    <div className="author">
-                        <div className="profile-picture"></div>
-                        <div className="name"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    }
-
-    return <div className="posts-preview">
-        {title ? (
-            <h2>{title}</h2>
-        ) : null}
-        <div className="posts-container">
-            {posts && (
-                posts.map((post) => {
-                    return <NavLink
-                        to={`/posts/${post.id}`}
-                        className="post"
-                        key={post.id}>
-                        <span className="category">
-                            {post.categories[0].name}
-                        </span>
-                        <img
-                            className="image"
-                            src={post.imageUrl}
-                            alt="Post image"
-                        />
+                    <img
+                        className="image"
+                        src={post.imageUrl}
+                        alt="Post image"
+                    />
+                    <div className="date-read-time">
                         <span className="date">
                             {format(post.createdAt, "MMMM do, yyyy")}
                         </span>
-                        <div className="text">
-                            <h2 className="title">
-                                {post.title}
-                            </h2>
-                            <p className="short-description">
-                                {post.shortDescription}
-                            </p>
+                        ·
+                        <span className="read-time">
+                            {post.readTime} Mins read
+                        </span>
+                    </div>
+                    <h2 className="title">
+                        {post.title.length > 50 ? post.title + "..." : post.title}
+                    </h2>
+                    <p className="description">
+                        {post.shortDescription.length > 100 ? post.shortDescription + "..." : post.shortDescription}
+                    </p>
+                    <div className="likes-comments">
+                        <div className="likes">
+                            <span className="material-symbols-rounded icon">
+                                favorite
+                            </span>
+                            <span className="text">
+                                {post.likes.length} {post.likes.length === 1 ? "Like" : "Likes"}
+                            </span>
                         </div>
-                        <div className="likes-comments">
-                            <div className="likes">
-                                <span className="material-symbols-rounded icon">
-                                    favorite
-                                </span> {post.likes.length} {post.likes.length != 1 ? "Likes" : "Like"}
-                            </div>
-                            ·
-                            <div className="comments">
-                                <span className="material-symbols-rounded icon">
-                                    comic_bubble
-                                </span> {post.comments.length} {post.comments.length != 1 ? "Comments" : "Comment"}
-                            </div>
+                        ·
+                        <div className="comments">
+                            <span className="material-symbols-rounded icon">
+                                comic_bubble
+                            </span>
+                            <span className="text">
+                                {post.comments.length} {post.comments.length === 1 ? "Comment" : "Comments"}
+                            </span>
                         </div>
+                    </div>
+                    {showPublishedStatus && (
+                        <div className={`published-status ${post.isPublished ? "published" : "not-published"}`}>
+                            <span className="material-symbols-rounded icon">
+                                {post.isPublished ? "check_circle" : "cancel"}
+                            </span>
+                            <div className="vertical-separator"></div>
+                            <span className="text">
+                                {post.isPublished ? "Published" : "Not Published"}
+                            </span>
+                        </div>
+                    )}
+                    {showPostsAuthor && (
                         <div className="author">
                             <img
-                                className="profile-picture"
                                 src={post.user.profilePictureUrl}
                                 alt="Post author profile picture"
+                                className="ppf"
                             />
-                            <p className="name">
-                                {post.user.firstName} {post.user.lastName}
-                            </p>
+                            <div className="vertical-separator"></div>
+                            <div className="name">
+                                <span className="material-symbols-rounded icon">
+                                    verified
+                                </span>
+                                <h3>{post.user.firstName} {post.user.lastName}</h3>
+                            </div>
                         </div>
-                    </NavLink>
-                })
-            )}
-        </div>
-    </div>
+                    )}
+                </NavLink>
+            })}
+        </section>
+    ) : null
 }
+

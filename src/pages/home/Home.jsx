@@ -1,15 +1,58 @@
 import "./home.css";
-import { useRouteLoaderData } from "react-router";
+
+// Packages
+import { useState, useEffect } from "react";
+import { useRouteLoaderData, NavLink } from "react-router";
+
+// Components
 import ServerErrorMessage from "../../components/server-error-message/ServerErrorMessage";
+
+// Assets
 import argentina from "../../assets/argentina.svg";
 import postsCounterBg from "../../assets/images/posts-counter-bg.jpg";
 import toolsUsedBg from "../../assets/images/tools-used-bg.jpg";
 import githubPlush from "../../assets/images/github-plush.jpg";
-import { NavLink } from "react-router";
-import PostsPreview from "../../components/posts-preview/PostsPreview";
+import PostsPreview from "../../components/posts-preview/PostsPreview.jsx";
 
 export default function Home() {
   const data = useRouteLoaderData("root");
+  const [posts, setPosts] = useState([]);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+  const [availablePosts, setAvailablePosts] = useState(null);
+  const [fetchingPostsError, setFetchingPostsError] = useState(null);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+
+        const postsUrl = `${import.meta.env.VITE_API_BASE}/posts`;
+        const fetchOptions = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        };
+
+        const response = await fetch(postsUrl, fetchOptions);
+        const result = await response.json();
+
+        console.log("the content of result when fetching all published posts is:", result);
+
+        if (result.success) {
+          setPosts(result.posts.slice(0, 4));
+          setAvailablePosts(result.posts.length);
+        }
+
+      } catch (error) {
+        setFetchingPostsError("Something went wrong when trying ")
+      } finally {
+        setIsLoadingPosts(false);
+      }
+    }
+
+    fetchPosts();
+  }, []);
 
   return <main className="home">
     {data?.serverError && (
@@ -43,7 +86,21 @@ export default function Home() {
         </div>
       </div>
     </div>
-    <PostsPreview title="Recent Posts" />
+    <div className="recent-posts">
+      <h2>
+        Recent posts
+      </h2>
+      <PostsPreview
+        isLoading={isLoadingPosts}
+        posts={posts}
+        fetchError={fetchingPostsError}
+        showPublishedStatus={false}
+        linkPath="/posts"
+        showPostsAuthor={true}
+        amountOfPostsToLoad={5}
+        forEditing={false}
+      />
+    </div>
     <div className="grid">
       <div className="tools-used">
         <img
@@ -81,7 +138,7 @@ export default function Home() {
         />
         <div className="overlay">
           <p>Posts available</p>
-          <span>10</span>
+          <span>{availablePosts || "-"}</span>
           <span className="material-symbols-rounded icon">
             newspaper
           </span>

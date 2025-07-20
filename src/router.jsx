@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { Navigate, createBrowserRouter } from "react-router";
 
 // Pages
 import App from "./pages/app/App.jsx";
@@ -11,16 +11,23 @@ import Logout from "./pages/logout/Logout.jsx";
 import CreatePost from "./pages/create-post/CreatePost.jsx";
 import Protected from "./pages/protected/Protected.jsx";
 import ServerError from "./pages/server-error/ServerError.jsx";
+import Dashboard from "./pages/dashboard/Dashboard.jsx";
+import Profile from "./pages/profile/Profile.jsx";
+import EditPost from "./pages/edit-post/EditPost.jsx";
 
 // Loaders
 import AppLoaderComponent from "./pages/app/AppLoaderComponent.jsx";
 import appLoader from "./pages/app/appLoader.jsx";
 import redirectIfLoggedLoader from "./loaders/redirectIfLogged.js";
 import checkIfUserIsAuthor from "./loaders/checkIfUserIsAuthor.js";
+import editPostLoader from "./pages/edit-post/editPostLoader.js";
+import postsLoader from "./pages/posts/postsLoader.js";
 
 // Actions
 import registerAction from "./pages/register/registerAction.js";
 import loginAction from "./pages/login/loginAction.js";
+import createPostAction from "./pages/create-post/createPostAction.js";
+import editPostAction from "./pages/edit-post/editPostAction.js";
 
 const router = createBrowserRouter(
   [
@@ -37,16 +44,43 @@ const router = createBrowserRouter(
         },
         {
           path: "/posts",
-          Component: Posts
+          Component: Posts,
+          loader: postsLoader,
+          hydrateFallbackElement: <div>
+            Loading posts and categories
+          </div>
         },
         {
           path: "/about",
           Component: About
         },
         {
-          path: "/create-post",
-          Component: CreatePost,
-          loader: checkIfUserIsAuthor
+          path: "/dashboard",
+          Component: Dashboard,
+          loader: checkIfUserIsAuthor,
+          children: [
+            {
+              index: true,
+              element: <Navigate to="profile" replace />
+            },
+            {
+              path: "/dashboard/profile",
+              index: true,
+              Component: Profile,
+            },
+            {
+              path: "/dashboard/create-post",
+              Component: CreatePost,
+              action: createPostAction,
+            },
+            {
+              id: "edit-post",
+              path: "/dashboard/my-posts/:postId/edit",
+              Component: EditPost,
+              loader: editPostLoader,
+              action: editPostAction,
+            }
+          ]
         },
         // Route protector
         {

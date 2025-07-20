@@ -1,0 +1,13 @@
+.post-creation-loader {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background);
+    gap: var(--size-medium);
+
+    .message {
+        font-weight: var(--font-thick);
+    }
+}

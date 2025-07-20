@@ -30,7 +30,7 @@ export default function CustomInput({
             <div className="vertical-separator"></div>
             <input
                 className="input"
-                type={inputType === "text" ? "text" : showPassword ? "text" : "password"}
+                type={inputType !== "password" ? inputType : showPassword ? "text" : "password"}
                 name={inputName}
                 id={inputName}
                 placeholder={inputPlaceholder}

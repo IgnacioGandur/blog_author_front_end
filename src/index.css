@@ -7,8 +7,9 @@
   --size-medium: 1.5em;
   --size-big: 2em;
   --size-very-big: 3em;
+  --size-masive: 7em;
   --color-white-dimmed: #FFFFFF55;
-  --color-white-dimmed-2: #FFFFFF33;
+  --color-white-dimmed-2: #FFFFFF22;
   --color-background: #222831;
   --color-main: #7678ed;
   --color-main-dimmed: #7678ed88;
@@ -61,7 +62,13 @@
 html,
 body,
 #root {
-  height: 100dvh;
+  height: 100%;
+}
+
+html,
+body,
+#root {
+  /* height: 100dvh; */
   background-color: var(--color-background);
   color: var(--color-font);
   font-family: var(--font-main);

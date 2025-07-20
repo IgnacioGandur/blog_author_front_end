@@ -1,4 +1,6 @@
 .fetch-error {
+    background-color: var(--color-background);
+    border: none;
     display: flex;
     flex-direction: column;
     gap: var(--size-medium);
