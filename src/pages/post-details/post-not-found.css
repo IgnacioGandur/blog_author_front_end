@@ -1,0 +1,29 @@
+.post-not-found {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-big);
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-titles);
+
+    h1 {
+        font-size: var(--font-size-very-big);
+    }
+
+    .image {
+        width: 30%;
+    }
+
+    .errors {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-small);
+        background-color: var(--color-error-dimmed);
+        border: 1px solid var(--color-error);
+        width: 50%;
+        padding: var(--size-medium);
+        align-items: center;
+        font-family: var(--font-main);
+    }
+}

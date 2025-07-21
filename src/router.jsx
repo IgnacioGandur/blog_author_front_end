@@ -14,6 +14,7 @@ import ServerError from "./pages/server-error/ServerError.jsx";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import EditPost from "./pages/edit-post/EditPost.jsx";
+import PostDetails from "./pages/post-details/PostDetails.jsx";
 
 // Loaders
 import AppLoaderComponent from "./pages/app/AppLoaderComponent.jsx";
@@ -22,12 +23,14 @@ import redirectIfLoggedLoader from "./loaders/redirectIfLogged.js";
 import checkIfUserIsAuthor from "./loaders/checkIfUserIsAuthor.js";
 import editPostLoader from "./pages/edit-post/editPostLoader.js";
 import postsLoader from "./pages/posts/postsLoader.js";
+import postDetailsLoader from "./pages/post-details/postDetailsLoader.js";
 
 // Actions
 import registerAction from "./pages/register/registerAction.js";
 import loginAction from "./pages/login/loginAction.js";
 import createPostAction from "./pages/create-post/createPostAction.js";
 import editPostAction from "./pages/edit-post/editPostAction.js";
+import postDetailsAction from "./pages/post-details/postDetailsAction.js";
 
 const router = createBrowserRouter(
   [
@@ -49,6 +52,12 @@ const router = createBrowserRouter(
           hydrateFallbackElement: <div>
             Loading posts and categories
           </div>
+        },
+        {
+          path: "/posts/:postId",
+          Component: PostDetails,
+          loader: postDetailsLoader,
+          action: postDetailsAction
         },
         {
           path: "/about",
