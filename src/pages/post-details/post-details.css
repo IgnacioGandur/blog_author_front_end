@@ -115,14 +115,64 @@
         display: flex;
         flex-direction: column;
         gap: var(--size-big);
+        padding: var(--size-big);
 
         .post-title {
             font-size: var(--font-size-very-big);
+            text-transform: capitalize;
         }
 
         .editor {
             flex: 1;
             background-color: var(--color-background);
+        }
+
+        .like-post-form {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: var(--size-minimum);
+
+            .like-post-button {
+                background-color: transparent;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .icon {
+                    color: var(--color-font);
+                    font-size: 2.5rem;
+                }
+            }
+
+            .text {
+                font-weight: var(--font-thick);
+            }
+        }
+
+        .remove-like-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--size-minimum);
+
+            .remove-like-button {
+                background-color: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
+
+                .icon {
+                    font-size: 2.5rem;
+                    color: var(--color-font);
+                }
+            }
+
+            .text {
+                font-weight: var(--font-thick);
+            }
         }
 
         .post-end-message {
@@ -154,6 +204,17 @@
         flex-direction: column;
         gap: var(--size-small);
 
+        .read-time {
+            opacity: .75;
+            font-weight: var(--font-thick);
+        }
+
+        .horizontal-separator {
+            height: 3px;
+            background-color: var(--color-white-dimmed-2);
+            border-radius: var(--rounding-medium);
+        }
+
         .categories {
             display: flex;
             gap: var(--size-small);
@@ -173,6 +234,14 @@
         display: flex;
         flex-direction: column;
         gap: var(--size-big);
+
+        .comment-created {
+            padding: var(--size-big);
+            background-color: var(--color-success-dimmed);
+            text-align: center;
+            font-weight: var(--font-thick);
+            border-radius: var(--rounding-medium);
+        }
 
         .leave-comment {
             display: flex;
@@ -199,13 +268,21 @@
                 align-items: flex-end;
 
                 .submit-comment-button {
-                    background-color: var(--color-main);
+                    border: 2px solid transparent;
+                    background-color: var(--color-main-dimmed);
                     color: var(--color-font);
                     font-weight: var(--font-thick);
                     padding: var(--size-small) calc(var(--size-small) * 2);
                     outline: none;
-                    border: none;
                     border-radius: var(--rounding-medium);
+                    transition: var(--transition-fast);
+                }
+
+                .submit-comment-button:hover,
+                .submit-comment-button:focus,
+                .submit-comment-button:focus-visible {
+                    background-color: var(--color-main);
+                    border: 2px solid var(--color-font);
                 }
             }
         }
@@ -215,6 +292,15 @@
             width: 100%;
             background-color: var(--color-white-dimmed-2);
             border-radius: var(--rounding-medium);
+        }
+
+        .comment-deleted-message,
+        .comment-updated-message {
+            background-color: var(--color-success-dimmed);
+            padding: var(--size-medium);
+            border-radius: var(--rounding-medium);
+            font-weight: var(--font-thick);
+            text-align: center;
         }
 
         .post-comments {
@@ -243,12 +329,14 @@
             .comments-container {
                 display: flex;
                 flex-direction: column;
-                gap: var(--size-big);
+                gap: var(--size-small);
 
                 .comment {
                     display: flex;
                     flex-direction: column;
                     gap: var(--size-small);
+                    padding: var(--size-small);
+                    border-radius: var(--rounding-medium);
 
                     .comment-author {
                         display: flex;
@@ -265,11 +353,115 @@
                             opacity: .5;
                             font-weight: var(--font-thick);
                         }
+
+                        .is-author {
+                            display: flex;
+                            align-items: center;
+                            opacity: .5;
+                        }
+
+                        .buttons {
+                            margin-left: auto;
+                            display: flex;
+                            gap: var(--size-small);
+
+                            .edit-comment-button,
+                            .delete-comment-form>.delete-comment-button {
+                                padding: var(--size-very-small);
+                                border-radius: var(--rounding-medium);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background-color: transparent;
+                                border: 1px solid var(--color-white-dimmed-2);
+                                transition: var(--transition-fast);
+                                cursor: pointer;
+
+                                span {
+                                    color: var(--color-font);
+                                    font-size: 2.05rem;
+                                }
+                            }
+
+
+                            .edit-comment-button:hover,
+                            .delete-comment-form>.delete-comment-button:hover,
+                            .edit-comment-button:focus,
+                            .delete-comment-form>.delete-comment-button:focus,
+                            .edit-comment-button:focus-visible,
+                            .delete-comment-form>.delete-comment-button:focus-visible {
+                                background-color: var(--color-main);
+                            }
+                        }
+                    }
+
+                    .edit-comment-form {
+                        display: flex;
+                        flex-direction: column;
+                        gap: var(--size-very-small);
+                        /* background-color: var(--color-white-dimmed-2); */
+                        background-color: transparent;
+                        padding: var(--size-small);
+                        border-radius: var(--rounding-medium);
+                        border: 2px solid var(--color-white-dimmed-2);
+
+                        .label {
+                            font-weight: var(--font-thick);
+                        }
+
+                        .input-button {
+                            display: flex;
+                            gap: var(--size-small);
+
+                            input {
+                                flex: 1;
+                                background-color: var(--color-main-dimmed);
+                                color: var(--color-font);
+                                padding: 0 var(--size-small);
+                                border-radius: var(--rounding-medium);
+                                border: 2px solid transparent;
+                                transition: var(--transition-fast);
+                                outline: none;
+                            }
+
+                            input:hover,
+                            input:focus,
+                            input:focus-visible {
+                                border: 2px solid var(--color-font);
+                            }
+
+
+                            button {
+                                background-color: transparent;
+                                background-color: var(--color-main-dimmed);
+                                border-radius: var(--rounding-medium);
+                                padding: var(--size-minimum);
+                                transition: var(--transition-fast);
+                                border: 2px solid transparent;
+                                outline: none;
+
+                                span {
+                                    font-size: 2rem;
+                                    color: var(--color-font);
+                                }
+                            }
+
+                            button:hover,
+                            button:focus,
+                            button:focus-visible {
+                                border: 2px solid var(--color-font);
+                            }
+                        }
                     }
 
                     .comment-content {
                         margin-left: calc(40px + var(--size-small));
                     }
+                }
+
+                .comment:has(.delete-comment-button:hover),
+                .comment:has(.edit-comment-button:hover) {
+                    outline: 2px solid var(--color-white-dimmed-2);
                 }
             }
         }

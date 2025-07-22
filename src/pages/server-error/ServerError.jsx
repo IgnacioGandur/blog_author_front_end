@@ -3,7 +3,10 @@ import svg from "../../assets/images/server-down.svg";
 import { useNavigate } from "react-router";
 import Button from "../../components/button/Button";
 
-export default function ServerError() {
+export default function ServerError({
+  message = "There seems to be a problem with the app's backend, please try again later...",
+  navigateTo = -1
+}) {
   const navigate = useNavigate();
   return <main className="server-error">
     <div className="title">
@@ -21,10 +24,10 @@ export default function ServerError() {
       className="image"
     />
     <p className="message">
-      There seems to be a problem with the app's backend, please try again later...
+      {message}
     </p>
     <Button
-      onClick={() => navigate(-1)}
+      onClick={() => navigate(navigateTo)}
     >
       Go back
     </Button>

@@ -10,14 +10,9 @@ export default async function createPostAction({ request }) {
         const content = formData.get("content");
         const imageUrl = formData.get("imageUrl");
         const categories = formData.getAll("categories");
-
-        console.log("the content of selected categories is:", categories);
-
         const objectCategories = categories.map((category) => {
             return { id: category }
         })
-
-        console.log("the content of objectCategories is:", objectCategories);
 
         const fetchPostUrl = "http://localhost:3000/api/posts";
         const fetchPostOptions = {
@@ -37,12 +32,8 @@ export default async function createPostAction({ request }) {
             })
         }
 
-        // TODO: re-direct after successfull post creation.
-
         const response = await fetch(fetchPostUrl, fetchPostOptions);
         const result = await response.json();
-
-        console.log("the content of result is:", result);
 
         if (result.success) {
             return redirect(`/dashboard/your-posts/${result.post.id}/edit`);

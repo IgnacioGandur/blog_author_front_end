@@ -1,21 +1,35 @@
 import "./post-details.css";
 import PostNotFound from "./PostNotFound";
-import { useLoaderData } from "react-router";
 import MDEditor from "@uiw/react-md-editor";
 import {
+  useState,
+  useEffect
+} from "react";
+import {
+  useActionData,
+  useLoaderData,
   useRouteLoaderData,
-  useFetcher,
   Form,
 } from "react-router";
 import { format } from "date-fns";
+import ServerError from "../server-error/ServerError";
 
 export default function PostDetails() {
+  const actionData = useActionData();
   const userData = useRouteLoaderData("root");
   const data = useLoaderData();
-  const fetcher = useFetcher();
+  const [commentToEdit, setCommentToEdit] = useState(null);
 
-  console.log("user data is:", userData);
-  console.log("data is:", data);
+  useEffect(() => {
+    setCommentToEdit(null);
+  }, [data])
+
+  if (data?.serverError) {
+    return <ServerError
+      message="There seems to be a problem with the app's backend, we were not able to fetch the post."
+      navigateTo="/"
+    />
+  }
 
   if (!data.success) {
     return <PostNotFound errors={data.errors} />
@@ -80,6 +94,48 @@ export default function PostDetails() {
           source={data.post.content}
         >
         </MDEditor.Markdown>
+        {userData.success && (
+          data.post.likes?.some((like) => Object.values(like).includes(userData.user.id)) ? (
+            <Form
+              method="post"
+              className="remove-like-form"
+            >
+              <input
+                type="hidden"
+                name="intent"
+                value="remove-post-like"
+              />
+              <button className="remove-like-button">
+                <span className="material-symbols-rounded icon">
+                  heart_broken
+                </span>
+              </button>
+              <span className="text">Remove like</span>
+            </Form>
+          ) : (
+            <Form
+              className="like-post-form"
+              method="post"
+            >
+              <input
+                type="hidden"
+                name="intent"
+                value="like-post"
+              />
+              <button
+                className="like-post-button"
+                type="submit"
+              >
+                <span className="material-symbols-rounded icon">
+                  favorite
+                </span>
+              </button>
+              <span className="text">
+                Like
+              </span>
+            </Form>
+          )
+        )}
         <div className="post-end-message">
           <div className="line"></div>
           <p>
@@ -88,6 +144,10 @@ export default function PostDetails() {
         </div>
       </div>
       <aside className="sidebar">
+        <p className="read-time">
+          Approximate {data.post.readTime} minutes read
+        </p>
+        <div className="horizontal-separator"></div>
         <h3>
           Categories
         </h3>
@@ -108,14 +168,14 @@ export default function PostDetails() {
             method="post"
             className="leave-comment"
           >
-            <textarea
+            <input
               className="input-box"
               name="comment"
               id="comment"
               placeholder="Leave a comment..."
               required={true}
             >
-            </textarea>
+            </input>
             <div className="button-wrapper">
               <button
                 className="submit-comment-button"
@@ -127,6 +187,25 @@ export default function PostDetails() {
           </Form>
         )}
         <div className="horizontal-separator"></div>
+        {actionData?.serverError ? (
+          <p className="comment-created fail">
+            {actionData.serverError}
+          </p>
+        ) : actionData?.message === "Comment created successfully!" ? (
+          <p className="comment-created success">
+            Comment created successfully!
+          </p>
+        ) : null}
+        {actionData?.message === "Your comment was deleted successfully!" && (
+          <p className="comment-deleted-message">
+            Comment deleted!
+          </p>
+        )}
+        {actionData?.commentUpdated && (
+          <p className="comment-updated-message">
+            Your comment was successfully updated!
+          </p>
+        )}
         <section className="post-comments">
           <h2>Comments <span className="ammount">{data.post.comments.length}</span></h2>
           {data.post.comments.length === 0 ? (
@@ -153,15 +232,89 @@ export default function PostDetails() {
                     <span className="comment-date">
                       {format(comment.createdAt, "LLLL do, yyyy")}
                     </span>
-                    {data.post.userId == userData.user.id && (
-                      <p>
-                        post author
+                    {data.post.userId == comment.userId && (
+                      <p className="is-author">
+                        <span
+                          className="material-symbols-rounded"
+                        >
+                          verified
+                        </span>
+                        Post Author
                       </p>
                     )}
+                    {comment.userId === userData.user.id && (
+                      <div className="buttons">
+                        <button
+                          className="edit-comment-button"
+                          onClick={() => {
+                            // If comment to edit is already this comment id, null, else, set it to this.
+                            setCommentToEdit((prev) => prev === comment.id ? null : comment.id);
+                          }}
+                        >
+                          <span className="material-symbols-rounded">
+                            edit
+                          </span>
+                        </button>
+                        <Form
+                          className="delete-comment-form"
+                          method="post"
+                        >
+                          <input
+                            type="hidden"
+                            name="deleteComment"
+                            value={comment.id}
+                          />
+                          <button
+                            className="delete-comment-button"
+                            type="submit"
+                          >
+                            <span className="material-symbols-rounded icon">
+                              delete
+                            </span>
+                          </button>
+                        </Form>
+                      </div>
+                    )}
                   </div>
-                  <p className="comment-content">
-                    {comment.content}
-                  </p>
+                  {commentToEdit === comment.id ? (
+                    <Form
+                      className="edit-comment-form"
+                      method="post"
+                    >
+                      <label
+                        className="label"
+                        htmlFor="update-comment"
+                      >
+                        Update Comment
+                      </label>
+                      <div className="input-button">
+                        <input
+                          id="update-comment"
+                          type="text"
+                          name="updatedComment"
+                          defaultValue={comment.content}
+                          required={true}
+                        />
+                        <input
+                          name="commentId"
+                          value={comment.id}
+                          type="hidden"
+                        />
+                        <button
+                          title="Edit your comment"
+                          type="submit"
+                        >
+                          <span className="material-symbols-rounded">
+                            edit_note
+                          </span>
+                        </button>
+                      </div>
+                    </Form>
+                  ) : (
+                    <p className="comment-content">
+                      {comment.content}
+                    </p>
+                  )}
                 </div>
               })}
             </div>

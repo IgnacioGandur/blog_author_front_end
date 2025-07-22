@@ -10,7 +10,7 @@ import {
   useNavigate
 } from "react-router";
 import PostsLoader from "../../components/posts-preview/PostsLoader";
-
+import ServerError from "../server-error/ServerError";
 
 export default function Posts() {
   const navigate = useNavigate();
@@ -49,6 +49,13 @@ export default function Posts() {
 
     fetchCategories();
   }, []);
+
+  if (data.serverError) {
+    return <ServerError
+      message={data.serverError}
+      navigateTo="/"
+    />
+  }
 
   return <main className="posts">
     {showSidebar && (
@@ -178,13 +185,7 @@ export default function Posts() {
           </Button>
         )}
       </header>
-      {data?.serverError ? (
-        <div className="wrapper">
-          <p className="posts-error">
-            {data.serverError}
-          </p>
-        </div>
-      ) : fetcher.state === "loading" ? (
+      {fetcher.state === "loading" ? (
         <PostsLoader
           postsNumber={10}
         />
