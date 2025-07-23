@@ -1,28 +1,25 @@
 import "./create-post.css";
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useRef
+} from "react";
 import MDEditor from '@uiw/react-md-editor';
 import CustomInput from "../../components/custom-input/CustomInput";
-import { useFetcher } from "react-router";
+import {
+  useFetcher,
+  useActionData,
+  Form,
+  useLoaderData
+} from "react-router";
 import Button from "../../components/button/Button.jsx";
-import { MoonLoader } from "react-spinners";
 import InputErrors from "../../components/input-errors/InputErrors.jsx";
 import PostCreationLoader from "./PostCreationLoader.jsx";
 
-function CategoryLoader({ ammount = 5 }) {
-  return Array.from({ length: ammount }).map((_, index) => {
-    return <div
-      key={index}
-      className="category-loader"
-    >
-      <MoonLoader
-        color="#7678ed"
-        size="24px"
-      />
-    </div>
-  })
-}
-
 export default function CreatePost() {
+  const actionData = useActionData();
+  console.log("action data is:", actionData);
+  const loaderData = useLoaderData();
+  console.log("loader data is:", loaderData);
   const fetcher = useFetcher();
   const [userInputs, setUserInputs] = useState({
     title: "",
@@ -31,10 +28,20 @@ export default function CreatePost() {
     imageUrl: "",
     readTime: "",
   })
-  const [categories, setCategories] = useState(null);
   const [postContent, setPostContent] = useState('');
-  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
-  const [fetchCategoriesError, setFetchCategoriesError] = useState(null);
+  const dialogRef = useRef(null);
+
+  function openDialog() {
+    if (dialogRef.current) {
+      dialogRef.current.showModal();
+    }
+  }
+
+  function closeDialog() {
+    if (dialogRef.current) {
+      dialogRef.current.close();
+    }
+  }
 
   function handleUserInputs(e, property) {
     setUserInputs({
@@ -43,35 +50,74 @@ export default function CreatePost() {
     })
   }
 
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        setIsLoadingCategories(true);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        const categoriesUrl = "http://localhost:3000/api/categories";
-        const response = await fetch(categoriesUrl);
-        const result = await response.json();
-
-        if (result.success) {
-          setCategories(result.categories);
-        }
-
-      } catch (error) {
-        setFetchCategoriesError("Server error. The app was not able fetch the categories.");
-      } finally {
-        setIsLoadingCategories(false);
-      }
-    }
-    fetchCategories();
-  }, []);
-
   if (fetcher.state === "submitting") {
     return <PostCreationLoader />
   }
-
-  // TODO: display a message to the user saying that after the post creation, the post is not going to be published automatically, it needs to be manually done.
-  //
   return <section className="create-post">
+    <dialog
+      ref={dialogRef}
+      className="create-category-dialog"
+    >
+      <Form
+        className="create-category-form"
+        method="post"
+      >
+        <fieldset>
+          <legend>
+            Create Category
+          </legend>
+          <label
+            htmlFor="category-name"
+          >
+            Category Name
+          </label>
+          <input
+            type="text"
+            name="createCategory"
+            id="category-name"
+            placeholder="Programming..."
+          />
+          <div className="buttons-container">
+            <Button
+              type="submit"
+              onClick={closeDialog}
+            >
+              Create!
+            </Button>
+            <Button
+              type="button"
+              onClick={closeDialog}
+            >
+              Cancel
+            </Button>
+          </div>
+        </fieldset>
+      </Form>
+    </dialog>
+    {actionData?.categoryCreated && (
+      <p className="category-created">
+        Category created successfully!
+      </p>
+    )}
+    {actionData?.categoryCreated === false && (
+      <div
+        className="category-creation-failed"
+      >
+        <p className="message">
+          Something went wrong when trying to create the category:
+        </p>
+        <ul className="errors-container">
+          {actionData?.errors.map((error) => {
+            return <li
+              key={error.path}
+              className="error"
+            >
+              {error.msg}
+            </li>
+          })}
+        </ul>
+      </div>
+    )}
     <div className="wrapper">
       {fetcher.data?.errors && (
         <InputErrors errors={fetcher.data} />
@@ -132,25 +178,18 @@ export default function CreatePost() {
             value={userInputs.readTime}
             onChange={handleUserInputs}
           />
-          {fetchCategoriesError ? (
+          {loaderData?.serverError ? (
             <fieldset className="categories-fieldset">
               <legend>Error while fetching categories</legend>
               <p className="fetch-error">
-                {fetchCategoriesError}
+                {loaderData.serverError}
               </p>
             </fieldset>
-          ) : isLoadingCategories ? (
-            <fieldset className="categories-fieldset">
-              <legend>Fetching categories...</legend>
-              <div className="categories">
-                <CategoryLoader ammount={5} />
-              </div>
-            </fieldset>
-          ) : (
+          ) : loaderData?.success ? (
             <fieldset className="categories-fieldset">
               <legend>Select the categories for your post</legend>
               <div className="categories">
-                {categories.map((category) => {
+                {loaderData.categories.map((category) => {
                   return <label
                     className="category"
                     key={category.id}
@@ -169,7 +208,18 @@ export default function CreatePost() {
                 )}
               </div>
             </fieldset>
-          )}
+          ) : null}
+          <div className="category-not-found">
+            <p>
+              The category you are looking doesn't exists?
+            </p>
+            <button
+              type="button"
+              onClick={openDialog}
+            >
+              Create it!
+            </button>
+          </div>
           <Button
             type="submit"
           >

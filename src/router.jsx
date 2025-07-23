@@ -24,6 +24,7 @@ import checkIfUserIsAuthor from "./loaders/checkIfUserIsAuthor.js";
 import editPostLoader from "./pages/edit-post/editPostLoader.js";
 import postsLoader from "./pages/posts/postsLoader.js";
 import postDetailsLoader from "./pages/post-details/postDetailsLoader.js";
+import createPostLoader from "./pages/create-post/createPostLoader.js";
 
 // Actions
 import registerAction from "./pages/register/registerAction.js";
@@ -81,6 +82,7 @@ const router = createBrowserRouter(
               path: "/dashboard/create-post",
               Component: CreatePost,
               action: createPostAction,
+              loader: createPostLoader
             },
             {
               id: "edit-post",

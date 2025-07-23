@@ -1,0 +1,12 @@
+.edit-post-loader {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--size-medium);
+
+    .message {
+        font-weight: var(--font-thick);
+    }
+}

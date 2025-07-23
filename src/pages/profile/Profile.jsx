@@ -1,13 +1,17 @@
 import "./profile.css";
-import { useRouteLoaderData, NavLink } from "react-router";
+import {
+  useRouteLoaderData,
+  useSearchParams,
+  NavLink,
+} from "react-router";
 import { format } from "date-fns";
 import profileBanner from "../../../src/assets/images/profile-banner.jpg";
 import PostsPreview from "../../components/posts-preview/PostsPreview.jsx"
 
 export default function Profile() {
   const data = useRouteLoaderData("root");
-
-  console.log("the content of data in the profile page is:", data);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const message = searchParams.get("message");
 
   return <section className="profile">
     <article className="user-info">
@@ -82,6 +86,9 @@ export default function Profile() {
         <div className="empty-div"></div>
       </div>
     </article>
+    <div className="message">
+      {message}
+    </div>
     <article className="user-posts">
       <h2>Your Posts</h2>
       {data.user?.posts.length === 0 && (

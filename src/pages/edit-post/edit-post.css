@@ -5,8 +5,84 @@
     min-height: 100vh;
     padding: var(--size-small);
 
-    .title {
+    .edit-post-dialog {
+        height: fit-content;
+        width: 25%;
+        position: sticky;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: var(--size-medium);
+        border-radius: var(--rounding-medium);
+        background-color: var(--color-background);
+        color: white;
+        border: none;
+
+        .delete-post-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--size-medium);
+
+            .message {
+                display: flex;
+                flex-direction: column;
+                gap: var(--size-minimum);
+                align-items: center;
+                font-weight: var(--font-thick);
+
+                span {
+                    color: var(--color-warning);
+                }
+            }
+
+            .buttons {
+                display: flex;
+                gap: var(--size-small);
+
+                button {
+                    flex: 1;
+                    padding: var(--size-small);
+                    font-size: var(--font-size-small);
+                    background-color: var(--color-main);
+                    color: var(--color-font);
+                    font-weight: var(--font-thick);
+                    border-radius: var(--rounding-medium);
+                    outline: none;
+                    border: none;
+                }
+            }
+        }
+    }
+
+    .edit-post-dialog::backdrop {
+        background-color: #00000088;
+    }
+
+    .post-created-message {
+        width: 100%;
         text-align: center;
+        background-color: var(--color-success-dimmed);
+        padding: var(--size-small);
+        border: 1px solid var(--color-success);
+        font-weight: var(--font-thick);
+    }
+
+    .post-created-message:first-letter {
+        text-transform: capitalize;
+    }
+
+    .title-delete {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            background-color: var(--color-error);
+            padding: var(--size-small) calc(var(--size-small) * 2);
+            border: 2px solid transparent;
+            border-radius: var(--rounding-medium);
+            color: var(--color-font);
+            font-weight: var(--font-thick);
+        }
     }
 
     .updated-message.success {

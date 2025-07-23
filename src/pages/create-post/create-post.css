@@ -4,6 +4,104 @@
     flex-direction: column;
     flex: 4;
 
+    .create-category-dialog {
+        height: fit-content;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 25%;
+        z-index: 100;
+        border-radius: var(--rounding-medium);
+        padding: var(--size-small);
+        background-color: var(--color-background);
+        color: var(--color-font);
+        border: none;
+
+        .create-category-form {
+            display: flex;
+            flex: 1;
+
+            fieldset,
+            fieldset>legend {
+                padding: var(--size-small);
+                border: 1px solid var(--color-main);
+            }
+
+            fieldset {
+                display: flex;
+                flex-direction: column;
+                gap: var(--size-small);
+                flex: 1;
+
+                legend {
+                    font-weight: var(--font-thick);
+                }
+
+                label {
+                    font-weight: var(--font-thick);
+                }
+
+                input {
+                    padding: var(--size-small);
+                    background-color: transparent;
+                    font-size: var(--font-size-small);
+                    border: 1px solid var(--color-main-dimmed);
+                    color: var(--color-font);
+                }
+
+                input:hover,
+                input:focus,
+                input:focus-visible {
+                    outline: 2px solid var(--color-main);
+                }
+
+                .buttons-container {
+                    display: flex;
+                    gap: var(--size-small);
+
+                    button {
+                        flex: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    .category-created {
+        background-color: var(--color-success-dimmed);
+        padding: var(--size-small);
+        border: 1px solid var(--color-success);
+        text-align: center;
+        font-weight: var(--font-thick);
+    }
+
+    .category-creation-failed {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-small);
+        background-color: var(--color-error-dimmed);
+        border: 1px solid var(--color-error);
+        padding: var(--size-small);
+
+        .message {
+            font-weight: var(--font-thick);
+            text-align: center;
+        }
+
+        .errors-container {
+            flex: 1;
+            display: flex;
+            gap: var(--size-small);
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .create-category-dialog::backdrop {
+        background-color: #00000088;
+    }
+
     .wrapper {
         flex: 1;
         display: flex;
@@ -52,6 +150,8 @@
                             border: 1px solid var(--color-main);
                             text-transform: capitalize;
                             transition: var(--transition-fast);
+                            display: flex;
+                            align-items: center;
 
                             .checkbox {
                                 position: absolute;
@@ -94,6 +194,31 @@
 
                     .fetch-error {
                         background-color: transparent;
+                    }
+                }
+
+                .category-not-found {
+                    text-align: center;
+                    font-weight: var(--font-thick);
+                    opacity: .75;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: var(--size-very-small);
+
+                    button {
+                        background-color: transparent;
+                        color: var(--color-main);
+                        font-size: var(--font-size-small);
+                        border: none;
+                        font-weight: var(--font-thick);
+                        cursor: pointer;
+                    }
+
+                    button:hover,
+                    button:focus,
+                    button:focus-visible {
+                        text-decoration: underline;
                     }
                 }
 
