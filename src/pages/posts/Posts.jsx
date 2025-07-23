@@ -9,7 +9,7 @@ import {
   useLoaderData,
   useNavigate
 } from "react-router";
-import PostsLoader from "../../components/posts-preview/PostsLoader";
+// import PostsLoader from "../../components/posts-preview/PostsLoaderss";
 import ServerError from "../server-error/ServerError";
 
 export default function Posts() {

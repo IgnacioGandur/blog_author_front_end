@@ -1,11 +1,11 @@
 import "./home.css";
 
-// Packages
-import { useState, useEffect } from "react";
-import { useRouteLoaderData, NavLink } from "react-router";
-
-// Components
-import ServerErrorMessage from "../../components/server-error-message/ServerErrorMessage";
+import {
+  useLoaderData,
+  useRouteLoaderData,
+  NavLink,
+  useSearchParams,
+} from "react-router";
 
 // Assets
 import argentina from "../../assets/argentina.svg";
@@ -16,47 +16,21 @@ import PostsPreview from "../../components/posts-preview/PostsPreview.jsx";
 
 export default function Home() {
   const data = useRouteLoaderData("root");
-  const [posts, setPosts] = useState([]);
-  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
-  const [availablePosts, setAvailablePosts] = useState(null);
-  const [fetchingPostsError, setFetchingPostsError] = useState(null);
+  const postsData = useLoaderData();
+  const [searchParams, setSetParams] = useSearchParams();
+  const message = searchParams.get("message");
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-
-        const postsUrl = `${import.meta.env.VITE_API_BASE}/posts`;
-        const fetchOptions = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        };
-
-        const response = await fetch(postsUrl, fetchOptions);
-        const result = await response.json();
-
-        console.log("the content of result when fetching all published posts is:", result);
-
-        if (result.success) {
-          setPosts(result.posts.slice(0, 4));
-          setAvailablePosts(result.posts.length);
-        }
-
-      } catch (error) {
-        setFetchingPostsError("Something went wrong when trying ")
-      } finally {
-        setIsLoadingPosts(false);
-      }
-    }
-
-    fetchPosts();
-  }, []);
 
   return <main className="home">
     {data?.serverError && (
-      <ServerErrorMessage errorMessage={data.serverError} />
+      <p className="message server-not-working">
+        {data.serverError}
+      </p>
+    )}
+    {message && (
+      <p className="message">
+        {message}
+      </p>
     )}
     <div className="welcome-hero">
       <div className="bg">
@@ -91,13 +65,11 @@ export default function Home() {
         Recent posts
       </h2>
       <PostsPreview
-        isLoading={isLoadingPosts}
-        posts={posts}
-        fetchError={fetchingPostsError}
-        showPublishedStatus={false}
+        fetchError={postsData?.serverError}
+        posts={postsData?.posts}
         linkPath="/posts"
+        showPublishedStatus={false}
         showPostsAuthor={true}
-        amountOfPostsToLoad={5}
         forEditing={false}
       />
     </div>
@@ -138,7 +110,7 @@ export default function Home() {
         />
         <div className="overlay">
           <p>Posts available</p>
-          <span>{availablePosts || "-"}</span>
+          <span>{postsData?.posts?.length || "-"}</span>
           <span className="material-symbols-rounded icon">
             newspaper
           </span>

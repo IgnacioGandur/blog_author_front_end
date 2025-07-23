@@ -130,10 +130,9 @@
             display: flex;
             flex-direction: column;
             background-color: var(--color-background);
-            border-radius: var(--rounding-small);
             position: absolute;
             left: 50%;
-            transform: translate(-50%, 75%);
+            transform: translate(-50%, 125%);
             width: 100%;
             overflow: hidden;
             gap: 0;
@@ -147,14 +146,16 @@
                 font-weight: var(--font-thick);
                 color: var(--color-font);
                 text-decoration: none;
-                border: 2px solid transparent;
+                border: 1px solid var(--color-white-dimmed-2);
+                border-radius: var(--rounding-medium);
+                transition: var(--transition-fast);
             }
 
             .option:hover,
             .option:focus,
             .option:focus-visible {
                 background-color: var(--color-main-dimmed);
-                border: 2px solid var(--color-main);
+                border: 1px solid var(--color-main);
             }
         }
     }

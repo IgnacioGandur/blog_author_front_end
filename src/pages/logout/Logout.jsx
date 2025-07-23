@@ -11,7 +11,7 @@ export default function Logout() {
     useEffect(() => {
         async function logout() {
             try {
-                const logoutUrl = "http://localhost:3000/api/auth/users/logout";
+                const logoutUrl = import.meta.env.VITE_API_BASE + "/auth/users/logout";
                 const fetchOptions = {
                     method: "post",
                     credentials: "include",

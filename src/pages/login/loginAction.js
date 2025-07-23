@@ -1,11 +1,11 @@
 export default async function loginAction({ request }) {
     try {
-        await new Promise(resolve => setTimeout(resolve, 1250));
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         const formData = await request.formData();
         const username = formData.get("username");
         const password = formData.get("password");
-        const loginUrl = "http://localhost:3000/api/auth/users/login";
+        const loginUrl = import.meta.env.VITE_API_BASE + "/auth/users/login";
         const fetchOptions = {
             mode: "cors",
             method: "post",

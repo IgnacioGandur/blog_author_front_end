@@ -1,27 +1,20 @@
 import "./posts-preview.css";
 import { NavLink } from "react-router";
 import { format } from "date-fns";
-import PostsLoader from "./PostsLoader";
 
 export default function PostsPreview({
     fetchError,
     posts,
-    isLoading,
     linkPath,
     showPublishedStatus,
     showPostsAuthor,
-    amountOfPostsToLoad,
     forEditing = false
 }) {
     return fetchError ? (
         <p className="fetch-error">
-            There seems to be a problem with the app's backend. The app was not able to retrieve the posts...
+            {fetchError}
         </p>
-    ) : isLoading ? (
-        <PostsLoader
-            postsNumber={amountOfPostsToLoad}
-        />
-    ) : posts.length > 0 ? (
+    ) : posts?.length > 0 ? (
         <section className="posts-preview">
             {posts.map((post) => {
                 return <NavLink
@@ -101,6 +94,10 @@ export default function PostsPreview({
                 </NavLink>
             })}
         </section>
-    ) : null
+    ) : (
+        <p className="no-posts">
+            No posts yet...
+        </p>
+    )
 }
 

@@ -18,7 +18,27 @@ export default function Footer() {
                 <span className="year">2025</span>
             </div>
             <div>b</div>
-            <div>c</div>
+            <div>
+                <h3>Github</h3>
+                <a
+                    href="https://github.com/IgnacioGandur"
+                    target="_blank"
+                >
+                    Personal github profile
+                </a>
+                <a
+                    href="https://github.com/IgnacioGandur/blog_api"
+                    target="_blank"
+                >
+                    Blog API repo
+                </a>
+                <a
+                    href=""
+                    target="_blank"
+                >
+                    Blog author repo
+                </a>
+            </div>
         </div>
     </footer>
 }

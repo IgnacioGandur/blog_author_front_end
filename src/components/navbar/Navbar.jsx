@@ -116,12 +116,6 @@ export default function Navbar() {
                     <div className="options">
                         <NavLink
                             className="option"
-                            to="/profile"
-                        >
-                            Profile
-                        </NavLink>
-                        <NavLink
-                            className="option"
                             to="/logout"
                         >
                             Logout

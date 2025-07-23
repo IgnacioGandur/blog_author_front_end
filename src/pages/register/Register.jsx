@@ -67,7 +67,6 @@ export default function Register() {
   }
 
   return <main className="register">
-    {/* Show input errors to the users if there's any. */}
     {fetcher.data?.errors &&
       <InputErrors errors={fetcher.data} />}
     <fetcher.Form

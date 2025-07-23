@@ -2,8 +2,20 @@
     display: flex;
     flex-direction: column;
     padding: 10px;
-    /* gap: var(--size-small); */
     gap: var(--size-very-big);
+
+    .message {
+        text-align: center;
+        padding: var(--size-medium);
+        background-color: var(--color-warning-dimmed);
+        border: 1px solid var(--color-warning);
+        font-weight: var(--font-thick);
+    }
+
+    .message.server-not-working {
+        background-color: var(--color-error-dimmed);
+        border: 1px solid var(--color-error);
+    }
 
     .welcome-hero {
         display: flex;

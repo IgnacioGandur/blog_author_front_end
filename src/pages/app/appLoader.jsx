@@ -1,6 +1,6 @@
 export default async function appLoader() {
   try {
-    const fetchUrl = "http://localhost:3000/api/users/me";
+    const fetchUrl = import.meta.env.VITE_API_BASE + "/users/me";
     const fetchOptions = {
       method: "GET",
       mode: "cors",
@@ -12,6 +12,8 @@ export default async function appLoader() {
 
     const response = await fetch(fetchUrl, fetchOptions);
     const result = await response.json();
+
+    console.log("result in app loader is:", result);
 
     return result;
   } catch (error) {

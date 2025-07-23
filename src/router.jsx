@@ -25,6 +25,7 @@ import editPostLoader from "./pages/edit-post/editPostLoader.js";
 import postsLoader from "./pages/posts/postsLoader.js";
 import postDetailsLoader from "./pages/post-details/postDetailsLoader.js";
 import createPostLoader from "./pages/create-post/createPostLoader.js";
+import homeLoader from "./pages/home/homeLoader.js";
 
 // Actions
 import registerAction from "./pages/register/registerAction.js";
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
         {
           index: true,
           Component: Home,
+          loader: homeLoader,
         },
         {
           path: "/posts",

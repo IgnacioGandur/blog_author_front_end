@@ -71,7 +71,7 @@ export default function Profile() {
               {data.user.comments.length}
             </span>
             <span className="text">
-              Comments on posts
+              Commented posts
             </span>
           </p>
           <p className="joined-date">
@@ -86,9 +86,11 @@ export default function Profile() {
         <div className="empty-div"></div>
       </div>
     </article>
-    <div className="message">
-      {message}
-    </div>
+    {message && (
+      <div className="message">
+        {message}
+      </div>
+    )}
     <article className="user-posts">
       <h2>Your Posts</h2>
       {data.user?.posts.length === 0 && (

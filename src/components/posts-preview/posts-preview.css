@@ -1,3 +1,11 @@
+.no-posts {
+    text-align: center;
+    font-weight: var(--font-thick);
+    padding: var(--size-medium);
+    border-radius: var(--rounding-medium);
+    border: 1px solid var(--color-white-dimmed);
+}
+
 .posts-preview {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
