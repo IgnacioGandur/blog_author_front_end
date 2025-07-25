@@ -18,7 +18,6 @@
 
     .banner {
         grid-area: banner;
-        background-color: mediumpurple;
         position: relative;
 
         .image,
@@ -527,6 +526,163 @@
                 .comment:has(.delete-comment-button:hover),
                 .comment:has(.edit-comment-button:hover) {
                     outline: 2px solid var(--color-white-dimmed-2);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:1420px) {
+    .post-details {
+        .banner {
+            .content {
+                .author-details {
+                    position: initial;
+                    align-items: center;
+                    transform: translateY(52%);
+                }
+
+                .likes-comments {
+                    .comments {
+                        padding: 0;
+                    }
+                }
+            }
+        }
+
+
+        .sidebar {
+            margin-top: 5em;
+
+            h3,
+            .read-time {
+                text-align: center;
+            }
+
+            .categories {
+                justify-content: center;
+            }
+        }
+
+        .sidebar::after {
+            content: "";
+            position: relative;
+            bottom: -10%;
+            width: 100%;
+            height: 3px;
+            border-radius: var(--rounding-medium);
+            background-color: var(--color-white-dimmed-2);
+        }
+
+        .post-title,
+        .post-content {
+            text-align: center;
+        }
+
+        .post-content {
+            .editor {
+                text-align: start;
+            }
+        }
+
+        grid-template-areas: "banner banner banner banner banner"
+        "sidebar sidebar sidebar sidebar sidebar"
+        "content content content content content"
+        "content content content content content"
+        "content content content content content"
+        "comments comments comments comments comments"
+        ;
+
+        .comments {
+            padding: var(--size-medium);
+        }
+    }
+
+    .empty {
+        display: none;
+    }
+}
+
+@media screen and (max-width:640px) {
+    .post-details {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-small);
+
+        .banner {
+            width: 100%;
+            height: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10em;
+
+            .image {
+                position: initial;
+                transform: initial;
+            }
+
+            .content {
+                flex-direction: column-reverse;
+
+                .author-details {
+                    align-self: flex-start;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    align-self: center;
+                    transform: translateY(75%);
+                    text-align: center;
+                }
+
+                .likes-comments {
+                    position: absolute;
+                    top: 0;
+                }
+            }
+        }
+
+        .comments {
+            .post-comments {
+                .comments-container {
+                    .comment {
+                        .comment-author {
+                            display: grid;
+                            grid-template-columns: 1fr 3fr 1fr;
+                            grid-template-rows: 1fr 1fr;
+                            gap: .05em;
+
+                            .comment-ppf {
+                                grid-column: 1/2;
+                                grid-row: 1/-1;
+                                justify-self: center;
+                            }
+
+                            .comment-date {
+                                grid-column: 2/3;
+                                grid-row: 1/2;
+                            }
+
+                            .user-full-name {
+                                grid-column: 2/3;
+                                grid-row: 2/-1;
+                            }
+
+                            .is-author {
+                                grid-column: 3/4;
+                                grid-row: 2/3;
+                            }
+
+                            >*:not(.comment-ppf) {
+                                text-wrap: nowrap;
+                            }
+
+                            .comment-date,
+                            .is-author {
+                                font-size: var(--font-size-very-small);
+                            }
+                        }
+                    }
                 }
             }
         }

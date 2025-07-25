@@ -239,10 +239,9 @@ export default function PostDetails() {
                       src={comment.user.profilePictureUrl}
                       alt="Comment author profile picture"
                     />
-                    <h3>
+                    <h3 className="user-full-name">
                       {comment.user.firstName} {comment.user.lastName}
                     </h3>
-                    ·
                     <span className="comment-date">
                       {format(comment.createdAt, "LLLL do, yyyy")}
                     </span>
@@ -293,33 +292,92 @@ export default function PostDetails() {
                       </div>
                     </Form>
                   ) : (
-                    <>
-                      <p className="comment-content">
-                        {comment.content}
+                    <p className="comment-content">
+                      {comment.content}
+                    </p>
+                  )}
+                  <>
+                    <div className="comment-data">
+                      <p
+                        title="Likes in this comment"
+                        className="comment-likes-counter"
+                      >
+                        <span className="number">
+                          {comment.likes?.length}
+                        </span>
+                        <span className="horizontal-separator"></span>
+                        <span className="icon material-symbols-rounded">
+                          celebration
+                        </span>
                       </p>
-                      <div className="comment-data">
-                        <p
-                          title="Likes in this comment"
-                          className="comment-likes-counter"
-                        >
-                          <span className="number">
-                            {comment.likes?.length}
-                          </span>
-                          <span className="horizontal-separator"></span>
-                          <span className="icon material-symbols-rounded">
-                            celebration
-                          </span>
-                        </p>
-                        {userData?.success && (
-                          <div className="buttons">
-                            {userData?.success && (
-                              comment.likes?.some((like) => like.userId === userData?.user?.id) ? <Form
+                      {/* TODO: move this outside the above ternary operator. */}
+                      {userData?.success && (
+                        <div className="buttons">
+                          {userData?.success && (
+                            comment.likes?.some((like) => like.userId === userData?.user?.id) ? <Form
+                              method="post"
+                            >
+                              <input
+                                type="hidden"
+                                name="intent"
+                                value="removeLikeFromComment"
+                              />
+                              <input
+                                type="hidden"
+                                name="commentId"
+                                value={comment.id}
+                              />
+                              <button
+                                type="submit"
+                                className="comment-interaction-button"
+                              >
+                                <span className="material-symbols-rounded">
+                                  thumb_down
+                                </span>
+                              </button>
+                            </Form> : <Form
+                              method="post"
+                            >
+                              <input
+                                type="hidden"
+                                name="intent"
+                                value="likeComment"
+                              />
+                              <input
+                                type="hidden"
+                                name="commentId"
+                                value={comment.id}
+                              />
+                              <button
+                                className="comment-interaction-button"
+                                type="submit"
+                              >
+                                <span className="material-symbols-rounded">
+                                  thumb_up
+                                </span>
+                              </button>
+                            </Form>
+                          )}
+                          {comment.userId === userData.user.id && (
+                            <>
+                              <button
+                                className="comment-interaction-button"
+                                onClick={() => {
+                                  // If comment to edit is already this comment id, null, else, set it to this.
+                                  setCommentToEdit((prev) => prev === comment.id ? null : comment.id);
+                                }}
+                              >
+                                <span className="material-symbols-rounded">
+                                  edit
+                                </span>
+                              </button>
+                              <Form
                                 method="post"
                               >
                                 <input
                                   type="hidden"
                                   name="intent"
-                                  value="removeLikeFromComment"
+                                  value="deleteComment"
                                 />
                                 <input
                                   type="hidden"
@@ -327,78 +385,21 @@ export default function PostDetails() {
                                   value={comment.id}
                                 />
                                 <button
-                                  type="submit"
-                                  className="comment-interaction-button"
-                                >
-                                  <span className="material-symbols-rounded">
-                                    thumb_down
-                                  </span>
-                                </button>
-                              </Form> : <Form
-                                method="post"
-                              >
-                                <input
-                                  type="hidden"
-                                  name="intent"
-                                  value="likeComment"
-                                />
-                                <input
-                                  type="hidden"
-                                  name="commentId"
-                                  value={comment.id}
-                                />
-                                <button
                                   className="comment-interaction-button"
                                   type="submit"
                                 >
-                                  <span className="material-symbols-rounded">
-                                    thumb_up
+                                  <span className="material-symbols-rounded icon">
+                                    delete
                                   </span>
                                 </button>
                               </Form>
-                            )}
-                            {comment.userId === userData.user.id && (
-                              <>
-                                <button
-                                  className="comment-interaction-button"
-                                  onClick={() => {
-                                    // If comment to edit is already this comment id, null, else, set it to this.
-                                    setCommentToEdit((prev) => prev === comment.id ? null : comment.id);
-                                  }}
-                                >
-                                  <span className="material-symbols-rounded">
-                                    edit
-                                  </span>
-                                </button>
-                                <Form
-                                  method="post"
-                                >
-                                  <input
-                                    type="hidden"
-                                    name="intent"
-                                    value="deleteComment"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="commentId"
-                                    value={comment.id}
-                                  />
-                                  <button
-                                    className="comment-interaction-button"
-                                    type="submit"
-                                  >
-                                    <span className="material-symbols-rounded icon">
-                                      delete
-                                    </span>
-                                  </button>
-                                </Form>
-                              </>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </>
-                  )}
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                  {/* )} */}
                 </div>
               })}
             </div>

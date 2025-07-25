@@ -149,6 +149,7 @@ export default function Navbar() {
                 <aside className="mobile-menu">
                     {links.map((link) => {
                         return <NavLink
+                            key={link.path}
                             onClick={() => setShowSidebar(false)}
                             to={link.path}
                             className="menu-link"
