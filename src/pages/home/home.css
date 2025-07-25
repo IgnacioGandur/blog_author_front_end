@@ -296,6 +296,52 @@
     }
 }
 
+/* Tablet */
+@media screen and (max-width:1024px) {
+    .home {
+        .welcome-hero {
+            max-height: 750px;
+
+            .welcome-content {
+                .wrapper {
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+            }
+
+            .bg {
+                .text {
+                    font-size: 4rem;
+                }
+            }
+        }
+
+        .grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+
+            >* {
+                min-height: 375px;
+                grid-column: initial !important;
+                grid-row: initial !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:640px) {
+    .home {
+        .welcome-hero {
+            .bg {
+                .text {
+                    font-size: 3rem;
+                }
+            }
+        }
+    }
+}
+
 @keyframes blink {
     50% {
         opacity: 0;
