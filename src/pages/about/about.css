@@ -154,3 +154,9 @@
     }
 
 }
+
+@media screen and (max-width:1024px) {
+    .about {
+        text-align: center;
+    }
+}
