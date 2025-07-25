@@ -15,6 +15,10 @@ import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import EditPost from "./pages/edit-post/EditPost.jsx";
 import PostDetails from "./pages/post-details/PostDetails.jsx";
+import NotFound from "./pages/not-found/NotFound.jsx";
+
+// Components
+import CheckIfUserIsAuthor from "./components/check-if-user-is-author/CheckIfUserIsAuthor.jsx";
 
 // Loaders
 import AppLoaderComponent from "./pages/app/AppLoaderComponent.jsx";
@@ -33,6 +37,7 @@ import loginAction from "./pages/login/loginAction.js";
 import createPostAction from "./pages/create-post/createPostAction.js";
 import editPostAction from "./pages/edit-post/editPostAction.js";
 import postDetailsAction from "./pages/post-details/postDetailsAction.js";
+import checkIfUserIsLogged from "./pages/dashboard/checkIfUserIsLogged.js";
 
 const router = createBrowserRouter(
   [
@@ -42,6 +47,7 @@ const router = createBrowserRouter(
       Component: App,
       loader: appLoader,
       hydrateFallbackElement: <AppLoaderComponent />,
+      errorElement: <NotFound />,
       children: [
         {
           index: true,
@@ -69,7 +75,7 @@ const router = createBrowserRouter(
         {
           path: "/dashboard",
           Component: Dashboard,
-          loader: checkIfUserIsAuthor,
+          loader: checkIfUserIsLogged,
           children: [
             {
               index: true,
@@ -77,14 +83,15 @@ const router = createBrowserRouter(
             },
             {
               path: "/dashboard/profile",
-              index: true,
               Component: Profile,
             },
             {
               path: "/dashboard/create-post",
-              Component: CreatePost,
+              element: <CheckIfUserIsAuthor>
+                <CreatePost />
+              </CheckIfUserIsAuthor>,
               action: createPostAction,
-              loader: createPostLoader
+              loader: createPostLoader,
             },
             {
               id: "edit-post",

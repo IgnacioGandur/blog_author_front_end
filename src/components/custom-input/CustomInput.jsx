@@ -10,7 +10,8 @@ export default function CustomInput({
     inputPlaceholder,
     required = true,
     value,
-    onChange
+    onChange,
+    constraintsMessage
 }) {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -20,8 +21,15 @@ export default function CustomInput({
     }
 
     return <div className="custom-input">
-        <label htmlFor={inputName}>
-            {labelText}
+        <label className="label" htmlFor={inputName}>
+            <span className="text">
+                {labelText}
+            </span>
+            {required && (
+                <i className="required-message">
+                    Required
+                </i>
+            )}
         </label>
         <div className={`input-and-icon ${roundBorders && "round-borders"}`}>
             <span className="material-symbols-rounded icon">
@@ -50,5 +58,8 @@ export default function CustomInput({
                 </button>
             )}
         </div>
+        <p className="constraints-message">
+            {constraintsMessage}
+        </p>
     </div>
 }

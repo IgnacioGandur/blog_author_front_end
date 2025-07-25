@@ -1,10 +1,10 @@
 .unauthorized-post-edition {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     gap: var(--size-big);
     justify-content: center;
     align-items: center;
-    height: 100vh;
 
     .title {
         font-size: var(--font-size-very-big);
@@ -16,5 +16,9 @@
 
     .image {
         width: 17%;
+    }
+
+    .empty {
+        display: none;
     }
 }

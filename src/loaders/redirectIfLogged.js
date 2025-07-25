@@ -1,7 +1,7 @@
 import { redirect } from "react-router";
 
 export default async function redirectIfLoggedLoader() {
-  const fetchUrl = "http://localhost:3000/api/users/me";
+  const fetchUrl = import.meta.env.VITE_API_BASE + "/users/me";
   const fetchOptions = {
     method: "GET",
     credentials: "include",

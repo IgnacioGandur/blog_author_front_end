@@ -9,7 +9,7 @@ export default function Navbar() {
     const [showProfileOptions, setShowProfileOptions] = useState(false);
     const data = useRouteLoaderData("root");
 
-    const links = data.user?.isAuthor ? [
+    const links = data?.user ? [
         {
             icon: "chair",
             path: "/",
@@ -126,7 +126,7 @@ export default function Navbar() {
         ) : (
             <div className="sign-links">
                 <NavLink
-                    className="link login"
+                    className="link"
                     to="/login"
                 >
                     Log In

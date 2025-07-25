@@ -2,7 +2,6 @@ import "./profile.css";
 import {
   useRouteLoaderData,
   useSearchParams,
-  NavLink,
 } from "react-router";
 import { format } from "date-fns";
 import profileBanner from "../../../src/assets/images/profile-banner.jpg";
@@ -91,25 +90,27 @@ export default function Profile() {
         {message}
       </div>
     )}
-    <article className="user-posts">
-      <h2>Your Posts</h2>
-      {data.user?.posts.length === 0 && (
-        <p className="no-posts-message">
-          You don't have any posts.
-        </p>
-      )}
-      {data.user?.posts && (
-        <PostsPreview
-          fetchError={null}
-          isLoading={false}
-          showPublishedStatus={true}
-          posts={data.user.posts}
-          linkPath={`/dashboard/my-posts`}
-          showPostsAuthor={false}
-          amountOfPostsToLoad={5}
-          forEditing={true}
-        />
-      )}
-    </article>
+    {data?.user?.isAuthor && (
+      <article className="user-posts">
+        <h2>Your Posts</h2>
+        {data.user?.posts.length === 0 && (
+          <p className="no-posts-message">
+            You don't have any posts.
+          </p>
+        )}
+        {data.user?.posts && (
+          <PostsPreview
+            fetchError={null}
+            isLoading={false}
+            showPublishedStatus={true}
+            posts={data.user.posts}
+            linkPath={`/dashboard/my-posts`}
+            showPostsAuthor={false}
+            amountOfPostsToLoad={5}
+            forEditing={true}
+          />
+        )}
+      </article>
+    )}
   </section>
 }

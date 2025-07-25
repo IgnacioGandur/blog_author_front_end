@@ -87,6 +87,7 @@ export default function Register() {
             value={userInputs.firstName}
             onChange={handleUserInput}
             required={true}
+            constraintsMessage="Between 3 and 30 characters, only letters"
           />
           <CustomInput
             googleIcon="group"
@@ -98,6 +99,7 @@ export default function Register() {
             value={userInputs.lastName}
             onChange={handleUserInput}
             required={true}
+            constraintsMessage="Between 3 and 30 characters, only letters"
           />
         </div>
       </fieldset>
@@ -113,6 +115,7 @@ export default function Register() {
           value={userInputs.username}
           onChange={handleUserInput}
           required={true}
+          constraintsMessage="Between 3 and 30 characters, case-sensitive, alphanumeric and hyphen"
         />
       </fieldset>
       <fieldset>

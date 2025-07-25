@@ -17,9 +17,7 @@ import PostCreationLoader from "./PostCreationLoader.jsx";
 
 export default function CreatePost() {
   const actionData = useActionData();
-  console.log("action data is:", actionData);
   const loaderData = useLoaderData();
-  console.log("loader data is:", loaderData);
   const fetcher = useFetcher();
   const [userInputs, setUserInputs] = useState({
     title: "",
@@ -30,6 +28,26 @@ export default function CreatePost() {
   })
   const [postContent, setPostContent] = useState('');
   const dialogRef = useRef(null);
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
+  const [showDeleteCategoryModal, setShowDeleteCategoryModal] = useState(false);
+
+  function selectCategoryToDelete(categoryId) {
+    openModal();
+    setCategoryToDelete(categoryId);
+  }
+
+  function openModal() {
+    setShowDeleteCategoryModal(true);
+  }
+
+  function closeModal() {
+    console.log("close modal called")
+    setShowDeleteCategoryModal(null);
+  }
+
+  function scrollToTop() {
+    window.scrollTo(0, 0);
+  }
 
   function openDialog() {
     if (dialogRef.current) {
@@ -53,7 +71,44 @@ export default function CreatePost() {
   if (fetcher.state === "submitting") {
     return <PostCreationLoader />
   }
-  return <section className="create-post">
+  return <section className="create-post" >
+    {showDeleteCategoryModal && (
+      <div className="delete-category-modal" >
+        <Form
+          method="post"
+          className="confirm-category-deletion-form"
+        >
+          <input
+            type="hidden"
+            name="intent"
+            value="delete-category"
+          />
+          <input
+            type="hidden"
+            name="categoryId"
+            value={categoryToDelete}
+          />
+          <div className="text">
+            <p className="confirm-message">Are you sure you want to delete this category?</p>
+            <p className="sub-title">(This can't be undone)</p>
+          </div>
+          <div className="buttons">
+            <button
+              type="submit"
+              onClick={closeModal}
+            >
+              Confirm
+            </button>
+            <button
+              type="button"
+              onClick={closeModal}
+            >
+              Cancel
+            </button>
+          </div>
+        </Form>
+      </div>
+    )}
     <dialog
       ref={dialogRef}
       className="create-category-dialog"
@@ -94,6 +149,16 @@ export default function CreatePost() {
         </fieldset>
       </Form>
     </dialog>
+    {actionData?.success && (
+      <p className="success-message">
+        {actionData.message}
+      </p>
+    )}
+    {actionData?.fail && (
+      <p className="fail-message">
+        {actionData.failMessage}
+      </p>
+    )}
     {actionData?.categoryCreated && (
       <p className="category-created">
         Category created successfully!
@@ -123,7 +188,7 @@ export default function CreatePost() {
         <InputErrors errors={fetcher.data} />
       )}
       {fetcher.data?.serverError && (
-        <p className="server-error">
+        <p className="back-end-error">
           There seems to be an error with the app's backend. The post was not created! Please try again later...
         </p>
       )}
@@ -155,6 +220,7 @@ export default function CreatePost() {
             required={true}
             value={userInputs.shortDescription}
             onChange={handleUserInputs}
+            constraintsMessage="Between 5 and 100 characters"
           />
           <CustomInput
             googleIcon="add_photo_alternate"
@@ -166,6 +232,7 @@ export default function CreatePost() {
             required={true}
             value={userInputs.imageUrl}
             onChange={handleUserInputs}
+            constraintsMessage="URL, Should point to an image url (jpg, jpeg, png, gif, bmp, or webp)."
           />
           <CustomInput
             googleIcon="acute"
@@ -177,6 +244,7 @@ export default function CreatePost() {
             required={true}
             value={userInputs.readTime}
             onChange={handleUserInputs}
+            constraintsMessage="Must be a number"
           />
           {loaderData?.serverError ? (
             <fieldset className="categories-fieldset">
@@ -190,20 +258,31 @@ export default function CreatePost() {
               <legend>Select the categories for your post</legend>
               <div className="categories">
                 {loaderData.categories.map((category) => {
-                  return <label
-                    className="category"
-                    key={category.id}
-                    htmlFor={category.name}
+                  return <div
+                    className="category-wrapper"
                   >
-                    {category.name}
-                    <input
-                      className="checkbox"
-                      type="checkbox"
-                      name="categories"
-                      id={category.name}
-                      value={category.id}
-                    />
-                  </label>
+                    <label
+                      className="category"
+                      key={category.id}
+                      htmlFor={category.name}
+                    >
+                      {category.name}
+                      <input
+                        className="checkbox"
+                        type="checkbox"
+                        name="categories"
+                        id={category.name}
+                        value={category.id}
+                      />
+                    </label>
+                    <button
+                      className="delete-category-button"
+                      type="button"
+                      onClick={() => selectCategoryToDelete(category.id)}
+                    >
+                      x
+                    </button>
+                  </div>
                 }
                 )}
               </div>
@@ -222,6 +301,7 @@ export default function CreatePost() {
           </div>
           <Button
             type="submit"
+            onClick={scrollToTop}
           >
             Create post!
           </Button>

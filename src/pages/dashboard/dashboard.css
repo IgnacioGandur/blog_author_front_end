@@ -1,7 +1,8 @@
 .dashboard {
     display: flex;
     flex-direction: column;
-    /* >main { */
-    /*     margin-top: initial !important; */
-    /* } */
+
+    .empty {
+        height: 80vh;
+    }
 }

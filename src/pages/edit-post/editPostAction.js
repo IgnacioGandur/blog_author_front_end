@@ -15,24 +15,33 @@ export default async function editPostAction({ request, params }) {
         const categoriesObject = categories.map((n) => ({ id: n }));
         const intent = formData.get("intent");
 
+        // Handle post deletion.
         if (intent === "delete-post") {
-            const postUrl = import.meta.env.VITE_API_BASE + `/posts/${postId}`;
-            const fetchOptions = {
-                method: "delete",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: "include",
-            }
+            try {
+                const postUrl = import.meta.env.VITE_API_BASE + `/posts/${postId}`;
+                const fetchOptions = {
+                    method: "delete",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                }
 
-            const deletePostResponse = await fetch(postUrl, fetchOptions);
-            const deletePostResult = await deletePostResponse.json();
-            if (deletePostResult.success) {
-                return redirect(`/dashboard/profile?message=${deletePostResult.message}`)
+                const deletePostResponse = await fetch(postUrl, fetchOptions);
+                const deletePostResult = await deletePostResponse.json();
+                if (deletePostResult.success) {
+                    return redirect(`/dashboard/profile?message=${deletePostResult.message}`)
+                }
+            } catch (error) {
+                return {
+                    fail: true,
+                    failMessage: "Something went wrong, we were not able to delete the post, please try again later..."
+                }
             }
         }
 
-        const fetchUrl = `${import.meta.env.VITE_API_BASE}/posts/${postId}`;
+        // Handle post update
+        const postUrl = `${import.meta.env.VITE_API_BASE}/posts/${postId}`;
         const fetchOptions = {
             method: "PATCH",
             headers: {
@@ -52,12 +61,16 @@ export default async function editPostAction({ request, params }) {
             )
         }
 
-        const response = await fetch(fetchUrl, fetchOptions);
-        const result = await response.json();
-        return result;
+        const editPostResponse = await fetch(postUrl, fetchOptions);
+        const editPostResult = await editPostResponse.json();
+        return {
+            success: true,
+            message: editPostResult.message
+        }
     } catch (error) {
         return {
-            serverError: error,
+            fail: true,
+            failMessage: "Something went wrong when trying to update your post, please try again later..."
         }
     }
 }

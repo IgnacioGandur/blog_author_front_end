@@ -25,6 +25,7 @@ export default function Login() {
     password: ""
   });
 
+
   function handleUserInput(e, field) {
     setUserInputs({
       ...userInputs,
@@ -51,6 +52,7 @@ export default function Login() {
       setFetchErrors(null);
     }
   }, [fetcher.data]);
+
 
   // Redirect user if login is successfull.
   if (fetcher.data?.success) {

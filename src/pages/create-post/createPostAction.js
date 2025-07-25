@@ -2,6 +2,7 @@ import { redirect } from "react-router";
 
 export default async function createPostAction({ request }) {
     try {
+        await new Promise(resolve => setTimeout(resolve, 1000));
         const formData = await request.formData();
         const title = formData.get("title");
         const shortDescription = formData.get("shortDescription");
@@ -12,6 +13,33 @@ export default async function createPostAction({ request }) {
         const objectCategories = categories.map((category) => {
             return { id: category }
         })
+        const intent = formData.get("intent");
+        const categoryId = formData.get("categoryId");
+
+        if (intent === "delete-category") {
+            try {
+                const deleteCategoryUrl = import.meta.env.VITE_API_BASE + `/categories/${categoryId}`;
+                const fetchOptions = {
+                    method: "delete",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include"
+                }
+
+                const deleteCategoryResponse = await fetch(deleteCategoryUrl, fetchOptions);
+                const deleteCategoryResult = await deleteCategoryResponse.json();
+                return {
+                    success: true,
+                    message: deleteCategoryResult.message,
+                }
+            } catch (error) {
+                return {
+                    fail: true,
+                    failMessage: "Failed to delete category, please try again later..."
+                }
+            }
+        }
 
         // Handle category creation
         const createCategory = formData.get("createCategory");
@@ -34,7 +62,7 @@ export default async function createPostAction({ request }) {
             return createCategoryResult;
         }
 
-        const fetchPostUrl = "http://localhost:3000/api/posts";
+        const fetchPostUrl = import.meta.env.VITE_API_BASE + "/posts";
         const fetchPostOptions = {
             method: "post",
             mode: "cors",

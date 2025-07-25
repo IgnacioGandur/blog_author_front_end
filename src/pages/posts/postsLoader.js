@@ -21,10 +21,15 @@ export default async function postsLoader({ request }) {
 
         const baseUrl = import.meta.env.VITE_API_BASE + "/posts";
         const postsUrl = apiParams.toString() ? `${baseUrl}?${apiParams.toString()}` : baseUrl;
-
-        const response = await fetch(postsUrl, fetchOptions);
-        const result = await response.json();
-        return result;
+        const categoriesUrl = import.meta.env.VITE_API_BASE + "/categories";
+        const categoriesResponse = await fetch(categoriesUrl, fetchOptions);
+        const categoriesResult = await categoriesResponse.json();
+        const postsResponse = await fetch(postsUrl, fetchOptions);
+        const postsResult = await postsResponse.json();
+        return {
+            categories: categoriesResult,
+            posts: postsResult,
+        }
     } catch (error) {
         return {
             serverError: "Something went wrong when trying to fetch posts.",

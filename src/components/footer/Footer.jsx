@@ -17,26 +17,26 @@ export default function Footer() {
                 </div>
                 <span className="year">2025</span>
             </div>
-            <div>b</div>
-            <div>
+            <div></div>
+            <div className="github-links">
                 <h3>Github</h3>
                 <a
                     href="https://github.com/IgnacioGandur"
                     target="_blank"
                 >
-                    Personal github profile
+                    Personal profile
                 </a>
                 <a
                     href="https://github.com/IgnacioGandur/blog_api"
                     target="_blank"
                 >
-                    Blog API repo
+                    Back end API
                 </a>
                 <a
-                    href=""
+                    href="https://github.com/IgnacioGandur/blog_author_front_end"
                     target="_blank"
                 >
-                    Blog author repo
+                    Front end
                 </a>
             </div>
         </div>

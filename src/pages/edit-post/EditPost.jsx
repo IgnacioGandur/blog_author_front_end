@@ -9,6 +9,8 @@ import {
   useLoaderData,
   useRouteLoaderData,
   useFetcher,
+  useActionData,
+  useNavigate,
   Form,
 } from "react-router";
 import UnauthorizedPostEdition from "./unathorized-post-edition/UnathorizedPostEdition";
@@ -21,12 +23,20 @@ import EditPostLoader from "./EditPostLoader";
 
 export default function EditPost() {
   const fetcher = useFetcher();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const message = searchParams.get("message");
   const userData = useRouteLoaderData("root");
   const postData = useLoaderData("edit-post");
   const [postContent, setPostContent] = useState(postData.post.content);
   const dialogRef = useRef(null);
+  const actionData = useActionData();
+
+  console.log("action data is:", actionData);
+
+  function scrollToTop() {
+    window.scrollTo(0, 0);
+  }
 
   function openDialog() {
     if (dialogRef.current) {
@@ -134,7 +144,7 @@ export default function EditPost() {
 
   if (postData.success) {
     if (postData.post.userId != userData.user.id) {
-      return <UnauthorizedPostEdition />
+      return navigate("/");
     }
 
     return <section className="edit-post">
@@ -175,6 +185,16 @@ export default function EditPost() {
           {message}
         </p>
       )}
+      {actionData?.success && (
+        <p className="success-message">
+          {actionData.message}
+        </p>
+      )}
+      {actionData?.fail && (
+        <p className="fail-message">
+          {actionData.failMessage}
+        </p>
+      )}
       <div className="title-delete">
         <h1 className="title">
           Edit your post
@@ -194,7 +214,7 @@ export default function EditPost() {
           Post updated successfully!
         </p>
       ) : null}
-      <fetcher.Form
+      <Form
         method="PATCH"
         className="form"
       >
@@ -318,6 +338,7 @@ export default function EditPost() {
           ) : null}
           <Button
             type="submit"
+            onClick={scrollToTop}
           >
             Edit post
           </Button>
@@ -339,7 +360,7 @@ export default function EditPost() {
             />
           </fieldset>
         </div>
-      </fetcher.Form>
+      </Form>
     </section>
   }
 }

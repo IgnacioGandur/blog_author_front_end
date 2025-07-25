@@ -1,8 +1,13 @@
 import "./dashboard-links.css";
-import { NavLink } from "react-router";
+import {
+    useRouteLoaderData,
+    NavLink,
+} from "react-router";
 
 export default function DashboardLinks() {
-    const links = [
+    const userData = useRouteLoaderData("root");
+    console.log("user data in dashboard links:", userData);
+    const links = userData?.user?.isAuthor ? [
         {
             icon: "account_circle",
             path: "/profile",
@@ -13,8 +18,14 @@ export default function DashboardLinks() {
             path: "/create-post",
             text: "Create post"
         },
+    ] : [
+        {
+            icon: "account_circle",
+            path: "/profile",
+            text: "Profile"
+        },
     ];
-    return <aside className="vertical-navbar">
+    return <header className="dashboard-links">
         {links.map((link) => {
             return <NavLink
                 key={link.path}
@@ -29,5 +40,5 @@ export default function DashboardLinks() {
                 </span>
             </NavLink>
         })}
-    </aside>
+    </header>
 }

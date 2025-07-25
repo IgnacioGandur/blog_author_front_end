@@ -20,7 +20,6 @@ export default function Home() {
   const [searchParams, setSetParams] = useSearchParams();
   const message = searchParams.get("message");
 
-
   return <main className="home">
     {data?.serverError && (
       <p className="message server-not-working">
@@ -66,7 +65,7 @@ export default function Home() {
       </h2>
       <PostsPreview
         fetchError={postsData?.serverError}
-        posts={postsData?.posts}
+        posts={postsData?.posts?.length > 5 ? postsData.posts.slice(0, 5) : postsData.posts}
         linkPath="/posts"
         showPublishedStatus={false}
         showPostsAuthor={true}

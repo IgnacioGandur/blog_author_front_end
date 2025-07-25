@@ -23,7 +23,7 @@ export default function PostsPreview({
                     className="post-preview"
                 >
                     <span className="main-category">
-                        {post.categories[0].name}
+                        {post.categories[0]?.name || "Category"}
                     </span>
                     <img
                         className="image"
@@ -95,9 +95,17 @@ export default function PostsPreview({
             })}
         </section>
     ) : (
-        <p className="no-posts">
-            No posts yet...
-        </p>
+        posts?.length === 0 ? (
+            <div className="no-posts-wrapper">
+                <p className="no-posts">
+                    No posts.
+                </p>
+            </div>
+        ) : (
+            <p className="no-posts">
+                No posts.
+            </p>
+        )
     )
 }
 

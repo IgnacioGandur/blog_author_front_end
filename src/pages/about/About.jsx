@@ -162,6 +162,20 @@ const tools = [
     link: "https://www.passportjs.org/packages/passport-jwt/",
     end: "back-end"
   },
+  {
+    name: "Render",
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M18.263.007c-3.121-.147-5.744 2.109-6.192 5.082c-.018.138-.045.272-.067.405c-.696 3.703-3.936 6.507-7.827 6.507a7.9 7.9 0 0 1-3.825-.979a.202.202 0 0 0-.302.178V24H12v-8.999c0-1.656 1.338-3 2.987-3h2.988c3.382 0 6.103-2.817 5.97-6.244c-.12-3.084-2.61-5.603-5.682-5.75"/></svg>',
+    description: "The hosting service that powers the API",
+    link: "https://render.com/",
+    end: "back-end"
+  },
+  {
+    name: "Netlify",
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#00bfa5" d="m11.25 2.232l-.127.127v4.567l.127.129h1.526l.126-.13V2.36l-.126-.127H11.25zM6.69 5.455L5.643 6.5v.21l1.6 1.6h1.108l.148-.148V7.055l-1.6-1.6zM1.026 11.11l-.127.127v1.528l.127.127h6.09l.127-.127v-1.528l-.127-.127zm15.858 0l-.127.127v1.528l.127.127h6.09l.127-.127v-1.528l-.127-.127zm-9.64 4.58l-1.6 1.6v.21l1.045 1.046h.21l1.6-1.6v-1.109l-.148-.146zm4.005 1.256l-.127.13v4.566l.127.127h1.526l.126-.127v-4.567l-.126-.129z"/><path fill="#cfd8dc" d="M14.855 15.172h-1.523l-.127-.127V11.48c0-.634-.249-1.125-1.013-1.142c-.394-.01-.844 0-1.325.019l-.072.074v4.61l-.127.128H9.146l-.128-.127V8.956l.128-.127h3.425a2.41 2.41 0 0 1 2.41 2.41v3.806z"/></svg>',
+    description: "The hosting platform that serves the front end",
+    link: "https://netlify.com",
+    end: "front-end"
+  }
 ];
 
 export default function About() {
@@ -170,12 +184,6 @@ export default function About() {
     <div className="section what-is-this-project">
       <h2>🤔 What is this project?</h2>
       <p>This personal blog is a project in my web development journey to write about the things I'm learning, explain the things I've learned and how I understand them. I hope you find something useful or at least interesting - thanks for stopping by!</p>
-    </div>
-    <div className="section project-goal">
-      <h2>🎯 This project's goal</h2>
-      <p>
-        The goal of this project was to learn about the design and creation of REST APIs. This project also includes two front-end applications, one for post authors (me), in which I can create, update and delete posts; the other front-end application is for users, where they can register, log in, read, comment on, and like the posts I write.
-      </p>
     </div>
     <div className="section tools-used">
       <h2>🛠️ The tools that I used to create this project</h2>
@@ -207,6 +215,20 @@ export default function About() {
           </a>
         })}
       </div>
+    </div>
+    <div className="section project-goal">
+      <h2>🎯 This project's goal</h2>
+      <p>
+        The goal of this project was to learn about the design and creation of REST APIs. This project also includes two front-end applications, one for post authors (me), in which I can create, update and delete posts; the other front-end application is for users, where they can register, log in, read, comment on, and like the posts I write.
+      </p>
+    </div>
+    <div className="section notes">
+      <h2>
+        📔 Notes
+      </h2>
+      <p>
+        Please keep in mind: this app is hosted in different hosting services in their free tiers, so that can affect the response times on page interactions.
+      </p>
     </div>
     <div className="section author">
       <h2>🔮 Author</h2>

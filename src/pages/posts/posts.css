@@ -1,6 +1,5 @@
 .posts {
     display: flex;
-    /* flex-direction: column; */
     gap: var(--size-small);
     padding: var(--size-small);
 
@@ -96,6 +95,11 @@
                         background-color: var(--color-main-dimmed);
                     }
                 }
+
+                .no-categories {
+                    text-align: center;
+                    font-weight: var(--font-thick);
+                }
             }
         }
     }
@@ -152,17 +156,26 @@
             }
         }
 
+        .posts-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .posts-container.empty {
+            align-items: center;
+            justify-content: center;
+        }
+
+        .posts-container.not-empty {
+            align-items: flex-start;
+        }
+
         .wrapper {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            .posts-error,
-            .no-posts {
-                font-weight: var(--font-thick);
-                text-align: center;
-            }
         }
     }
 }

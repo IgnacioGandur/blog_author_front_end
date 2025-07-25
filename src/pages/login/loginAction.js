@@ -22,6 +22,8 @@ export default async function loginAction({ request }) {
         const response = await fetch(loginUrl, fetchOptions);
         const result = await response.json();
 
+        console.log("login result:", result);
+
         return result;
 
     } catch (error) {

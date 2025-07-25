@@ -6,11 +6,21 @@
     padding: .5em;
     font-weight: 600;
 
+    .label {
+        display: flex;
+
+        .required-message {
+            margin-left: auto;
+            font-size: var(--font-size-very-small);
+            font-weight: 300;
+        }
+    }
+
     .input-and-icon {
         display: flex;
         gap: .5em;
         padding: .5em;
-        border: 1px solid var(--color-main-dimmed);
+        border: 1px solid var(--color-main);
         transition: var(--transition-fast);
 
         .icon {
@@ -24,7 +34,7 @@
             min-height: 100%;
             width: 1px;
             min-width: 1px;
-            background-color: var(--color-main-dimmed);
+            background-color: var(--color-main);
         }
 
         .input {
@@ -42,7 +52,7 @@
             align-items: center;
             justify-content: center;
             background-color: transparent;
-            border: 1px solid var(--color-main-dimmed);
+            border: 1px solid var(--color-main);
             padding: var(--size-very-small);
             transition: var(--transition-linear);
 
@@ -79,4 +89,8 @@
         outline: 2px solid var(--color-main);
     }
 
+    .constraints-message {
+        font-size: .85rem;
+        color: var(--color-main);
+    }
 }

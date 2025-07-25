@@ -1,60 +1,27 @@
 import "./posts.css";
+import { useState } from "react";
 import PostsPreview from "../../components/posts-preview/PostsPreview";
-import { useState, useEffect } from "react";
 import CustomInput from "../../components/custom-input/CustomInput";
 import Button from "../../components/button/Button";
 import {
   Form,
-  useFetcher,
   useLoaderData,
   useNavigate
 } from "react-router";
-// import PostsLoader from "../../components/posts-preview/PostsLoaderss";
-import ServerError from "../server-error/ServerError";
 
 export default function Posts() {
   const navigate = useNavigate();
-  const fetcher = useFetcher();
   const data = useLoaderData();
+  const posts = data?.posts?.posts;
+  const categories = data?.categories?.categories;
 
   const currentSearch = new URLSearchParams(window.location.search);
   const selectedCategories = currentSearch.getAll("categories");
   const searchTerm = currentSearch.get("searchTerm") || "";
-
-  const [categories, setCategories] = useState(null);
-  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
-  const [fetchCategoriesError, setFetchCategoriesError] = useState(null);
-
   const [showSidebar, setShowSidebar] = useState(false);
+
   function toggleSidebar() {
     setShowSidebar((prevState) => !prevState);
-  }
-
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        setIsLoadingCategories(true);
-        const categoriesUrl = `${import.meta.env.VITE_API_BASE}/categories`;
-        const response = await fetch(categoriesUrl);
-        const result = await response.json();
-        if (result.success) {
-          setCategories(result.categories);
-        }
-      } catch (error) {
-        setFetchCategoriesError("Something went wrong when trying to fetch categories.");
-      } finally {
-        setIsLoadingCategories(false);
-      }
-    }
-
-    fetchCategories();
-  }, []);
-
-  if (data.serverError) {
-    return <ServerError
-      message={data.serverError}
-      navigateTo="/"
-    />
   }
 
   return <main className="posts">
@@ -77,7 +44,7 @@ export default function Posts() {
             </legend>
             <CustomInput
               googleIcon="search"
-              labelText="Search Post"
+              labelText="Post Title"
               inputType="text"
               roundBorders={false}
               inputName="searchTerm"
@@ -94,79 +61,76 @@ export default function Posts() {
           </Button>
         </Form>
         <div className="filter-by-categories">
-          {fetchCategoriesError ? (
+          {data?.serverError ? (
             <fieldset className="fetch-error">
               <legend>
                 Error while fetching
               </legend>
               <p className="error-message">
-                {fetchCategoriesError}
+                We were not able to fetch the categories.
               </p>
             </fieldset>
-          ) : isLoadingCategories ? (
-            <p className="loading-categories">
-              Loading categories.
-            </p>
-          ) : categories && categories.length > 0 ? (
-            <>
-              <Form
-                method="get"
-                action="/posts"
-              >
-                <fieldset>
-                  <legend>Filter posts by categories</legend>
-                  <div className="categories">
-                    <div className="container">
-                      {categories.map((category) => {
-                        return <label
-                          key={category.id}
-                          htmlFor={category.name}
-                          className="category"
-                        >
-                          {category.name}
-                          <input
-                            type="checkbox"
-                            name="categories"
-                            value={category.name}
-                            id={category.name}
-                          />
-                        </label>
-                      })}
-                    </div>
-                    <Button
-                      type="submit"
-                    >
-                      Filter
-                    </Button>
+          ) : categories && categories?.length > 0 ? (
+            <Form
+              method="get"
+              action="/posts"
+            >
+              <fieldset>
+                <legend>Filter posts by categories</legend>
+                <div className="categories">
+                  <div className="container">
+                    {categories.map((category) => {
+                      return <label
+                        key={category.id}
+                        htmlFor={category.name}
+                        className="category"
+                      >
+                        {category.name}
+                        <input
+                          type="checkbox"
+                          name="categories"
+                          value={category.name}
+                          id={category.name}
+                        />
+                      </label>
+                    })}
                   </div>
-                </fieldset>
-              </Form>
-              <Button
-                type="button"
-                onClick={() => navigate("/posts")}
-              >
-                Clear Filters
-              </Button>
-            </>
+                  <Button
+                    type="submit"
+                  >
+                    Filter
+                  </Button>
+                </div>
+              </fieldset>
+            </Form>
           ) : (
-            <p className="no-categories">
-              There are no categories.
-            </p>
+            <fieldset>
+              <legend>No Categories</legend>
+              <p className="no-categories">
+                There are no categories.
+              </p>
+            </fieldset>
           )}
+          <Button
+            type="button"
+            onClick={() => navigate("/posts")}
+          >
+            Clear Filters
+          </Button>
         </div>
       </aside>
     )}
     <div className="wrapper">
       <header className="header">
         <h1>
-          {fetcher.state === "loading" ? "Fetching Posts" : "Published Posts"}
+          Published Posts
         </h1>
         {searchTerm !== "" && (
           <p className="filter-message">
             Currently filtering posts by the term: "{searchTerm}".
           </p>
         )}
-        {selectedCategories && selectedCategories.length > 0 ? (
+        {selectedCategories && selectedCategories?.length > 0 ? (
           <div className="filter-message">
             <p>
               Currently filtering posts by the categories:
@@ -176,6 +140,9 @@ export default function Posts() {
             </div>
           </div>
         ) : null}
+        {showSidebar && (
+          <div className="empty"></div>
+        )}
         {!showSidebar && (
           <Button
             type="button"
@@ -185,29 +152,18 @@ export default function Posts() {
           </Button>
         )}
       </header>
-      {fetcher.state === "loading" ? (
-        <PostsLoader
-          postsNumber={10}
+      <div
+        className={`posts-container ${posts?.length > 0 ? "not-empty" : "empty"}`}
+      >
+        <PostsPreview
+          fetchError={data?.serverError}
+          posts={posts}
+          linkPath="/posts"
+          showPublishedStatus={false}
+          showPostsAuthor={true}
+          forEditing={false}
         />
-      ) : data.posts.length > 0 ? (
-        <div className="posts-container">
-          <PostsPreview
-            fetchError={null}
-            posts={data.posts}
-            isLoading={false}
-            linkPath="/posts"
-            showPublishedStatus={false}
-            showPostsAuthor={true}
-            forEditing={false}
-          />
-        </div>
-      ) : data.posts.length === 0 ? (
-        <div className="wrapper">
-          <p className="term-not-found">
-            No post titles matches the search term: {searchTerm}.
-          </p>
-        </div>
-      ) : null}
+      </div>
     </div>
   </main>
 }

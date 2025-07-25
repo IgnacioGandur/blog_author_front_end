@@ -8,7 +8,7 @@ export default function FetchErrors({
     errorMessage,
     reloadPageFunction
 }) {
-    return <main className="fetch-error">
+    return <main className="fetch-error-page">
         <div className="title">
             <h1>
                 Oops...
