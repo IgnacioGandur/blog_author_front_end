@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-small);
-    height: 100vh;
+    /* height: 100vh; */
 
     >* {
         border-radius: var(--rounding-medium);
@@ -53,7 +53,7 @@
                     width: 100%;
                     height: 100%;
                     justify-content: flex-end;
-                    /* gap: var(); */
+                    text-align: end;
 
                     .data {
                         font-size: var(--font-size-very-big);
@@ -88,6 +88,7 @@
                     flex-direction: column;
                     align-items: center;
                     gap: var(--size-very-small);
+                    text-align: center;
 
                     .ppf-wrapper {
                         width: 150px;
@@ -111,6 +112,7 @@
                         gap: var(--size-very-small);
                         font-weight: var(--font-thick);
                         color: var(--color-success);
+                        flex-direction: column-reverse;
                     }
                 }
 
@@ -301,5 +303,130 @@
 
     .empty {
         height: 100%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .dashboard {
+        .profile {
+            height: initial !important;
+
+            .user-info {
+                .banner {
+                    .ppf-and-info {
+                        position: initial;
+                        display: grid;
+                        grid-template-columns: repeat(4, 1fr);
+                        grid-template-rows: 1fr 1fr;
+                        grid-template-areas:
+                            "ppf-name username liked-posts join-date"
+                            "ppf-name user-posts-length commented-posts join-date"
+                        ;
+
+                        .ppf-and-name {
+                            grid-area: ppf-name;
+                        }
+
+                        .username {
+                            grid-area: username;
+                        }
+
+                        .user-posts-length {
+                            grid-area: user-posts-length;
+                        }
+
+                        .liked-posts {
+                            grid-area: liked-posts;
+                        }
+
+                        .comments-length {
+                            grid-area: commented-posts;
+                        }
+
+                        .joined-date {
+                            grid-area: join-date;
+                        }
+
+                        >*:not(.ppf-and-name) {
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .dashboard {
+
+        .profile {
+            height: initial;
+
+            .user-info {
+                .banner {
+                    .ppf-and-info {
+                        margin-top: -30%;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        grid-template-rows: repeat(5, 1fr);
+                        grid-template-areas:
+                            "ppf-info ppf-info"
+                            "ppf-info ppf-info"
+                            "username user-posts-length"
+                            "liked-posts commented-posts"
+                            "joined-date joined-date"
+                        ;
+                        position: initial;
+                        align-items: center;
+                        justify-content: center;
+                        gap: var(--size-small);
+
+                        .ppf-and-name {
+                            grid-area: ppf-info;
+                        }
+
+                        .username {
+                            grid-area: username;
+                        }
+
+                        .user-posts-length {
+                            grid-area: user-posts-length;
+                        }
+
+                        .liked-posts {
+                            grid-area: liked-posts;
+                        }
+
+                        .comments-length {
+                            grid-area: commented-posts;
+                        }
+
+                        .joined-date {
+                            grid-area: joined-date;
+                        }
+                    }
+
+                    .ppf-and-info>*:not(.ppf-and-name) {
+                        background-color: var(--color-main-dimmed-2);
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: var(--rounding-medium);
+
+                        .text {
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+
+            .user-posts {
+                padding: 0;
+                border: none;
+            }
+        }
     }
 }

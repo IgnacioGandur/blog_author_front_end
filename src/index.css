@@ -58,23 +58,29 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  flex-grow: 1;
+}
+
+#root {
+  display: contents;
+}
+
 html,
 body {
-  height: 100%;
-  display: flex;
   background-color: var(--color-background);
   color: var(--color-font);
   font-family: var(--font-main);
 }
 
-body {
-  width: 100%;
-  flex-direction: column;
-}
 
 #root {
-  display: contents;
-
   main {
     margin-top: calc(var(--font-size-medium) + var(--size-medium) + var(--size-medium));
   }
@@ -89,13 +95,6 @@ body {
 }
 
 @media screen and (max-width: 1024px) {
-
-  html,
-  body {
-    display: initial !important;
-    height: initial !important;
-  }
-
   #root {
     main {
       margin-top: initial;
