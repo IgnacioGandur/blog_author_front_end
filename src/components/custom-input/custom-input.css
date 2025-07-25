@@ -38,7 +38,8 @@
         }
 
         .input {
-            flex: 1;
+            /* flex: 1; */
+            width: 100%;
             background-color: transparent;
             border: none;
             color: var(--color-font);

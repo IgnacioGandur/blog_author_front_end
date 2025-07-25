@@ -31,7 +31,7 @@ export default function Posts() {
           type="button"
           onClick={toggleSidebar}
         >
-          Hide sidebar
+          Hide filters
         </Button>
         <Form
           className="search-term-form"

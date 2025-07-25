@@ -257,9 +257,29 @@
             }
         }
 
+        .sign-links {
+            display: flex;
+            gap: var(--size-small);
+
+            .link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: var(--size-very-small) var(--size-small);
+                border-radius: var(--rounding-medium);
+                text-decoration: none;
+                font-weight: var(--font-thick);
+                color: var(--color-font);
+            }
+
+            .link.sign-up {
+                background-color: var(--color-main-dimmed);
+            }
+        }
+
         .show-menu-button {
             background-color: var(--color-main-dimmed);
-            padding: var(--size-small) calc(var(--size-small) * 2);
+            padding: var(--size-very-small) calc(var(--size-very-small) * 2);
             border: none;
             border-radius: var(--rounding-medium);
 
