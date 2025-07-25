@@ -72,15 +72,14 @@ export default function Login() {
   }
 
   return <main className="login">
-    {/* Show input errors from the user if any */}
-    {fetcher.data?.errors && (
-      <InputErrors errors={fetcher.data} />
-    )}
     <fetcher.Form
       className="form"
       action="/login"
       method="POST"
     >
+      {fetcher.data?.errors && (
+        <InputErrors errors={fetcher.data} />
+      )}
       {searchParams.get("message") && searchParams.get("username") && (
         <Fieldset
           legend="User registered successfully!"
@@ -91,7 +90,7 @@ export default function Login() {
 
       )}
       <Fieldset
-        legend="Login"
+        legend="Log in"
       >
         <CustomInput
           googleIcon="account_circle"
@@ -120,7 +119,7 @@ export default function Login() {
         type="submit"
         roundBorders={false}
       >
-        Login
+        Log in
       </Button>
     </fetcher.Form>
   </main>

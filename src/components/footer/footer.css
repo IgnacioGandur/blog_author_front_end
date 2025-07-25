@@ -1,6 +1,7 @@
 .footer {
     padding: var(--size-small);
     background-color: var(--color-background);
+    margin-bottom: auto;
 
     .wrapper {
         padding: var(--size-small);

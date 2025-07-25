@@ -85,11 +85,11 @@
             }
 
             .tool:nth-child(even) {
-                animation: appearEven 1s ease-in-out forwards;
+                animation: appearEven 1.5s ease forwards;
             }
 
             .tool:nth-child(odd) {
-                animation: appearOdd 1s ease-in-out forwards;
+                animation: appearOdd 1.5s ease forwards;
             }
         }
     }
@@ -111,19 +111,19 @@
 
 @keyframes appearEven {
     0% {
-        transform: translateY(-150%);
+        transform: translateY(-175%);
+    }
+
+    40% {
+        transform: translateY(50%);
     }
 
     60% {
-        transform: translateY(30%);
-    }
-
-    70% {
-        transform: translateY(-15%);
+        transform: translateY(-25%);
     }
 
     80% {
-        transform: translateY(7%);
+        transform: translateY(10%);
     }
 
     100% {
@@ -134,19 +134,19 @@
 
 @keyframes appearOdd {
     0% {
-        transform: translateY(150%);
+        transform: translateY(175%);
+    }
+
+    40% {
+        transform: translateY(-50%);
     }
 
     60% {
-        transform: translateY(-30%);
-    }
-
-    70% {
-        transform: translateY(15%);
+        transform: translateY(25%);
     }
 
     80% {
-        transform: translateY(-7%);
+        transform: translateY(-10%);
     }
 
     100% {

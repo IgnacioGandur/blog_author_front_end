@@ -1,4 +1,5 @@
 .login {
+    height: 100vh;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -11,8 +12,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         gap: var(--size-small);
+        justify-content: center;
 
         .registered-message {
             display: flex;
@@ -25,5 +26,12 @@
         >* {
             width: 100%;
         }
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .login {
+        padding: var(--size-medium);
+        height: 100vh;
     }
 }
