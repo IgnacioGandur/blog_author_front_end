@@ -250,24 +250,18 @@
                                 background-color: var(--color-main-dimmed-2);
                             }
 
-                            .category-loader {
-                                padding: var(--size-small);
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                border: 1px solid var(--color-white-dimmed-2);
-                                border-radius: var(--rounding-medium);
-                                flex: 1;
-                                min-width: 125px;
-                                height: 3rem;
-                            }
-
                             .delete-category-button {
                                 padding: var(--size-very-small);
                                 background-color: transparent;
                                 border: 1px solid var(--color-main);
                                 border-left: none;
                                 color: var(--color-font);
+                                transition: var(--transition-fast);
+                            }
+
+                            .delete-category-button:hover {
+                                background-color: var(--color-main-dimmed-2);
+                                cursor: pointer;
                             }
                         }
                     }

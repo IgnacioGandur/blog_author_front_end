@@ -94,6 +94,13 @@ body {
     'opsz' 24
 }
 
+@media screen and (min-width:1920px) {
+  body {
+    max-width: 1920px;
+    align-self: center;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   #root {
     main {

@@ -23,6 +23,10 @@ export default function Register() {
     confirmPassword: "",
   })
 
+  function scrollToTop() {
+    window.scrollTo(0, 0);
+  }
+
   function handleUserInput(e, inputName) {
     setUserInputs({
       ...userInputs,
@@ -158,7 +162,10 @@ export default function Register() {
         <legend>
           Create your account!
         </legend>
-        <Button type="submit">
+        <Button
+          onClick={scrollToTop}
+          type="submit"
+        >
           Register!
         </Button>
       </fieldset>

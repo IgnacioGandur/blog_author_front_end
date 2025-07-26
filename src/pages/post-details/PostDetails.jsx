@@ -121,7 +121,10 @@ export default function PostDetails() {
                   heart_broken
                 </span>
               </button>
-              <span className="text">Remove like</span>
+              <div className="horizontal-separator"></div>
+              <span className="like">
+                {post.likes.length}
+              </span>
             </Form>
           ) : (
             <Form
@@ -141,8 +144,9 @@ export default function PostDetails() {
                   favorite
                 </span>
               </button>
+              <div className="horizontal-separator"></div>
               <span className="text">
-                Like
+                {post.likes.length}
               </span>
             </Form>
           )
