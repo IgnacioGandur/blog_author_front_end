@@ -82,6 +82,7 @@ body {
 
 #root {
   main {
+    min-height: 100vh;
     margin-top: calc(var(--font-size-medium) + var(--size-medium) + var(--size-medium));
   }
 }

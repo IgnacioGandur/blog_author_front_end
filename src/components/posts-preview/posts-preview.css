@@ -111,6 +111,8 @@
             .ppf {
                 border-radius: var(--rounding-total);
                 width: 50px;
+                object-fit: cover;
+                object-position: center;
                 height: 50px;
             }
 

@@ -18,12 +18,22 @@ export default function DashboardLinks() {
             path: "/create-post",
             text: "Create post"
         },
+        {
+            icon: "settings",
+            path: "/account-settings",
+            text: "Account settings"
+        }
     ] : [
         {
             icon: "account_circle",
             path: "/profile",
             text: "Profile"
         },
+        {
+            icon: "settings",
+            path: "/account-settings",
+            text: "Account settings"
+        }
     ];
     return <header className="dashboard-links">
         {links.map((link) => {

@@ -1,0 +1,292 @@
+.account-settings {
+    min-height: 100vh;
+    margin-top: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-big);
+    padding: var(--size-big);
+    max-width: 1024px;
+    align-self: center;
+
+    .delete-account-dialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: none !important;
+        outline: none !important;
+        background-color: transparent;
+
+        .delete-account-form {
+            display: flex;
+            flex-direction: column;
+            padding: var(--size-big);
+            background-color: var(--color-background);
+            color: var(--color-font);
+            gap: var(--size-big);
+            outline: none;
+            border-radius: var(--rounding-medium);
+
+            .title {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+
+            fieldset {
+                border: 1px solid var(--color-main);
+                padding: var(--size-small);
+                gap: var(--size-medium);
+
+                legend {
+                    border: 1px solid var(--color-main);
+                    padding: var(--size-small);
+                    font-weight: var(--font-thick);
+                }
+
+                .label {
+                    display: flex;
+                    flex-direction: column;
+                    gap: var(--size-very-small);
+                    font-weight: var(--font-thick);
+
+                    .delete-account-password {
+                        background-color: var(--color-main-dimmed);
+                        padding: var(--size-very-small);
+                        color: var(--color-font);
+                        font-size: 1rem;
+                        width: 100%;
+                        border: 1px solid var(--color-main);
+                        outline: none;
+                    }
+                }
+            }
+
+            .warning-message {
+                color: var(--color-warning);
+                font-weight: var(--font-thick);
+            }
+
+            .buttons {
+                display: flex;
+                gap: var(--size-medium);
+
+                >* {
+                    flex-grow: 1;
+                    border: 1px solid var(--color-main);
+                }
+            }
+        }
+    }
+
+    .delete-account-dialog::backdrop {
+        background-color: #00000088;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .delete-account-button {
+            display: flex;
+            align-items: center;
+            gap: var(--size-very-small);
+            padding: var(--size-very-small);
+            background-color: var(--color-error-dimmed);
+            color: var(--color-font);
+            font-weight: var(--font-thick);
+            border: 1px solid var(--color-error);
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .delete-account-button:hover,
+        .delete-account-button:focus,
+        .delete-account-button:focus-visible {
+            background-color: var(--color-error);
+        }
+    }
+
+    .fail-message,
+    .success-message {
+        padding: var(--size-medium);
+        text-align: center;
+        font-weight: var(--font-thick);
+    }
+
+    .success-message {
+        border: 1px solid var(--color-success);
+        background-color: var(--color-success-dimmed);
+    }
+
+    .fail-message {
+        border: 1px solid var(--color-error);
+        background-color: var(--color-error-dimmed);
+    }
+
+    .current-profile-info {
+        display: grid;
+        grid-template-areas:
+            "ppf name"
+            "ppf username"
+        ;
+        grid-template-columns: 1fr 8fr;
+        gap: var(--size-small);
+        border: 1px solid var(--color-main);
+        padding: var(--size-medium);
+        position: relative;
+
+        .author-status {
+            font-weight: var(--font-thick);
+            opacity: .75;
+            display: flex;
+            flex-direction: column;
+            gap: var(--size-minimum);
+            align-items: center;
+            position: absolute;
+            top: var(--size-small);
+            right: var(--size-small);
+
+            .icon {
+                font-size: 4rem;
+            }
+        }
+
+
+        .ppf {
+            grid-area: ppf;
+
+            .image {
+                width: 125px;
+                height: 125px;
+                object-fit: cover;
+                object-position: center;
+                border-radius: var(--rounding-total);
+                border: 2px solid var(--color-main);
+            }
+        }
+
+        .name {
+            grid-area: name;
+            align-self: flex-end;
+            font-size: 2rem;
+        }
+
+        .username {
+            grid-area: username;
+            align-self: flex-start;
+            opacity: .75;
+            display: flex;
+            flex-direction: column;
+
+        }
+    }
+
+    .edit-profile-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-medium);
+
+        fieldset {
+            padding: var(--size-small);
+            border: 1px solid var(--color-main);
+
+            legend {
+                font-weight: var(--font-thick);
+                padding: var(--size-small);
+                border: 1px solid var(--color-main);
+            }
+        }
+
+        .horizontal-fieldset {
+            display: grid;
+            grid-template-columns: 1fr max-content 1fr;
+            gap: var(--size-small);
+
+            .vertical-separator {
+                width: 3px;
+                height: 50%;
+                background-color: var(--color-main-dimmed);
+                align-self: center;
+                border-radius: var(--rounding-medium);
+            }
+        }
+
+        .button {
+            border: 1px solid var(--color-main);
+        }
+    }
+
+    .profile-info-loader,
+    .form-submition-loader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--size-medium);
+        padding: var(--size-medium);
+        border: 1px solid var(--color-white-dimmed-2);
+        border-radius: var(--rounding-medium);
+    }
+
+    .profile-info-loader {
+        border: 1px solid var(--color-white-dimmed-2);
+    }
+
+    .form-submition-loader {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width:640px) {
+    .account-settings {
+        .delete-account-dialog {
+            width: 100%;
+            height: 100%;
+
+            .delete-account-form {
+                width: 100%;
+                height: 100%;
+                justify-content: space-between;
+                padding: var(--size-small);
+                text-align: center;
+
+                fieldset {
+                    legend {
+                        text-align: center;
+                    }
+
+                    .label {
+                        text-align: start;
+                    }
+                }
+            }
+        }
+
+        .current-profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .name,
+            .username {
+                align-self: center;
+            }
+
+            .author-status {
+                position: initial;
+            }
+        }
+
+        .edit-profile-info {
+            .horizontal-fieldset {
+                display: flex;
+                flex-direction: column;
+
+                .vertical-separator {
+                    display: none;
+                }
+            }
+        }
+    }
+}

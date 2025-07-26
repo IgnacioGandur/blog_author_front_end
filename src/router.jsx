@@ -16,6 +16,7 @@ import Profile from "./pages/profile/Profile.jsx";
 import EditPost from "./pages/edit-post/EditPost.jsx";
 import PostDetails from "./pages/post-details/PostDetails.jsx";
 import NotFound from "./pages/not-found/NotFound.jsx";
+import AccountSettings from "./pages/account-settings/AccountSettings.jsx";
 
 // Components
 import CheckIfUserIsAuthor from "./components/check-if-user-is-author/CheckIfUserIsAuthor.jsx";
@@ -30,6 +31,7 @@ import postsLoader from "./pages/posts/postsLoader.js";
 import postDetailsLoader from "./pages/post-details/postDetailsLoader.js";
 import createPostLoader from "./pages/create-post/createPostLoader.js";
 import homeLoader from "./pages/home/homeLoader.js";
+import accountSettingsLoader from "./pages/account-settings/accountSettingsLoader.js";
 
 // Actions
 import registerAction from "./pages/register/registerAction.js";
@@ -38,6 +40,7 @@ import createPostAction from "./pages/create-post/createPostAction.js";
 import editPostAction from "./pages/edit-post/editPostAction.js";
 import postDetailsAction from "./pages/post-details/postDetailsAction.js";
 import checkIfUserIsLogged from "./pages/dashboard/checkIfUserIsLogged.js";
+import accountSettingsAction from "./pages/account-settings/accountSettingsAction.js";
 
 const router = createBrowserRouter(
   [
@@ -99,6 +102,12 @@ const router = createBrowserRouter(
               Component: EditPost,
               loader: editPostLoader,
               action: editPostAction,
+            },
+            {
+              path: "/dashboard/account-settings",
+              Component: AccountSettings,
+              action: accountSettingsAction,
+              loader: accountSettingsLoader
             }
           ]
         },

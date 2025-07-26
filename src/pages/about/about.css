@@ -85,11 +85,11 @@
             }
 
             .tool:nth-child(even) {
-                animation: appearEven 1.5s ease forwards;
+                animation: appearEven 1.5s ease-in-out forwards;
             }
 
             .tool:nth-child(odd) {
-                animation: appearOdd 1.5s ease forwards;
+                animation: appearOdd 1.5s ease-in-out forwards;
             }
         }
     }

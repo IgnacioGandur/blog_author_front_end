@@ -101,6 +101,7 @@
         flex-direction: column;
         border: none;
         cursor: pointer;
+        z-index: 20;
 
         .ppf-username {
             display: flex;
@@ -140,6 +141,7 @@
             width: 100%;
             overflow: hidden;
             gap: 0;
+            z-index: 100 !important;
 
             .option {
                 width: 100%;
@@ -300,6 +302,7 @@
             flex-direction: column;
             border: none;
             cursor: pointer;
+            z-index: 10;
 
             .ppf-username {
                 display: flex;
