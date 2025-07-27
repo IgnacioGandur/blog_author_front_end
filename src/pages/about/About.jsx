@@ -240,7 +240,7 @@ export default function About() {
     <div className="section project-goal">
       <h2>🎯 This project's goal</h2>
       <p>
-        The goal of this project was to learn about the design and creation of REST APIs. This project also includes two front-end applications, one for post authors (me), in which I can create, update and delete posts; the other front-end application is for users, where they can register, log in, read, comment on, and like the posts I write.
+        The goal of this project was to learn about the design and creation of REST APIs and how to interact with them through a front-end application.
       </p>
     </div>
     <div className="section notes">
