@@ -94,7 +94,7 @@ export default function CreatePost() {
           <div className="buttons">
             <button
               type="submit"
-              onClick={closeModal}
+              onClick={() => setTimeout(closeModal, 250)}
             >
               Confirm
             </button>
@@ -258,6 +258,7 @@ export default function CreatePost() {
               <div className="categories">
                 {loaderData.categories.map((category) => {
                   return <div
+                    key={category.id}
                     className="category-wrapper"
                   >
                     <label
