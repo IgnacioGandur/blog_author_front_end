@@ -8,7 +8,6 @@ import {
 export default function CheckIfUserIsAuthor({ children }) {
   const navigate = useNavigate();
   const userData = useRouteLoaderData("root");
-  console.log("user data is:", userData);
 
   useEffect(() => {
     if (!userData?.user.isAuthor) {

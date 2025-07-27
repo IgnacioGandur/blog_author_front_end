@@ -1,3 +1,5 @@
+import { redirect } from "react-router";
+
 export default async function registerAction({ request }) {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -26,11 +28,17 @@ export default async function registerAction({ request }) {
 
         const response = await fetch(registerUrl, fetchOptions);
         const result = await response.json();
-        return result;
-
+        if (!result.success) {
+            return {
+                failedValidation: true,
+                result: result,
+            }
+        }
+        return redirect(`/login?message=${encodeURIComponent("Welcome, " + username + "! You can log in now!")}&username=${username}`);
     } catch (error) {
         return {
-            serverError: "Server error. It's seems like the backend of the app is not working correctly, please try again later..."
+            fail: true,
+            message: "Server error. It's seems like the backend of the app is not working correctly, please try again later..."
         }
     }
 }

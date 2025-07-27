@@ -4,37 +4,30 @@ import {
   useEffect
 } from "react";
 import {
-  useNavigate,
   useSearchParams,
-  useFetcher,
+  useNavigation,
+  useActionData,
+  Form
 } from "react-router";
-// import Fieldset from "../../components/fieldset/Fieldset";
 import CustomInput from "../../components/custom-input/CustomInput";
 import Button from "../../components/button/Button";
 import InputErrors from "../../components/input-errors/InputErrors";
 import LoaderOne from "../../components/loader-one/LoaderOne";
-import FetchErrors from "../../components/fetch-error/FetchError";
 
 export default function Login() {
-  const navigate = useNavigate();
-  const fetcher = useFetcher();
+  const navigation = useNavigation();
+  const actionData = useActionData();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [fetchErrors, setFetchErrors] = useState(null);
   const [userInputs, setUserInputs] = useState({
     username: searchParams.get("username") ? searchParams.get("username") : '',
     password: ""
   });
-
 
   function handleUserInput(e, field) {
     setUserInputs({
       ...userInputs,
       [field]: e.target.value,
     })
-  }
-
-  function tryAgain() {
-    setFetchErrors(null);
   }
 
   // Display a greet message to a newly registered user and focus password field.
@@ -44,51 +37,34 @@ export default function Login() {
     }
   }, [])
 
-  // Show fetching error component if there's a server error.
   useEffect(() => {
-    if (fetcher.data?.serverError) {
-      setFetchErrors(fetcher.data.serverError);
-    } else {
-      setFetchErrors(null);
+    if (navigation?.state === "submitting") {
+      return <LoaderOne message="Processing author login, please wait..." />
     }
-  }, [fetcher.data]);
-
-
-  // Redirect user if login is successfull.
-  if (fetcher.data?.success) {
-    return navigate("/", { replace: true });
-  }
-
-  if (fetcher.state === "submitting") {
-    return <LoaderOne message="Processing author login, please wait..." />
-  }
-
-  if (fetchErrors) {
-    return <FetchErrors
-      errorCode="500"
-      errorMessage={fetchErrors}
-      reloadPageFunction={tryAgain}
-    />
-  }
+  }, []);
 
   return <main className="login">
-    <fetcher.Form
+    <Form
       className="form"
-      action="/login"
       method="POST"
     >
-      {fetcher.data?.errors && (
-        <InputErrors errors={fetcher.data} />
+      {actionData?.validationFail && (
+        <InputErrors errors={actionData.result} />
       )}
       {searchParams.get("message") && searchParams.get("username") && (
         <fieldset
+          className="registered-message"
         >
-          <legend>User registered successfully!</legend>
-          {searchParams.get("message")}
+          <legend>
+            User registered successfully!
+          </legend>
+          <p>
+            {searchParams.get("message")}
+          </p>
         </fieldset>
-
       )}
-      <fieldset>
+      <fieldset
+      >
         <legend>
           Log in
         </legend>
@@ -121,6 +97,6 @@ export default function Login() {
       >
         Log in
       </Button>
-    </fetcher.Form>
+    </Form>
   </main>
 }

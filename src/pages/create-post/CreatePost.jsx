@@ -41,7 +41,6 @@ export default function CreatePost() {
   }
 
   function closeModal() {
-    console.log("close modal called")
     setShowDeleteCategoryModal(null);
   }
 

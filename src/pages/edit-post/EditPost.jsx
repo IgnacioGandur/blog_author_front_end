@@ -32,8 +32,6 @@ export default function EditPost() {
   const dialogRef = useRef(null);
   const actionData = useActionData();
 
-  console.log("action data is:", actionData);
-
   function scrollToTop() {
     window.scrollTo(0, 0);
   }

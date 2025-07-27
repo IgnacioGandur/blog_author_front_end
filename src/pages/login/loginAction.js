@@ -1,3 +1,4 @@
+import { redirect } from "react-router";
 export default async function loginAction({ request }) {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -22,13 +23,18 @@ export default async function loginAction({ request }) {
         const response = await fetch(loginUrl, fetchOptions);
         const result = await response.json();
 
-        console.log("login result:", result);
+        if (!result.success) {
+            return {
+                validationFail: true,
+                result: result,
+            }
+        }
 
-        return result;
-
+        return redirect("/");
     } catch (error) {
         return {
-            serverError: "Server error. It's seems like the backend of the app is not working correctly, please try again later...",
+            fail: true,
+            message: "Server error. It's seems like the backend of the app is not working correctly, please try again later...",
         }
     }
 }

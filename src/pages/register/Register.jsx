@@ -1,8 +1,9 @@
 import "./register.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-  useNavigate,
-  useFetcher,
+  useActionData,
+  useNavigation,
+  Form,
 } from "react-router";
 import CustomInput from "../../components/custom-input/CustomInput";
 import Button from "../../components/button/Button.jsx";
@@ -11,8 +12,7 @@ import LoaderOne from "../../components/loader-one/LoaderOne.jsx";
 import FetchError from "../../components/fetch-error/FetchError.jsx";
 
 export default function Register() {
-  const fetcher = useFetcher();
-  const navigate = useNavigate();
+  const navigation = useNavigation();
   const [fetchError, setFetchError] = useState(null);
   const [userInputs, setUserInputs] = useState({
     firstName: "",
@@ -22,6 +22,7 @@ export default function Register() {
     profilePictureUrl: "",
     confirmPassword: "",
   })
+  const actionData = useActionData();
 
   function scrollToTop() {
     window.scrollTo(0, 0);
@@ -38,31 +39,13 @@ export default function Register() {
     setFetchError(null);
   }
 
-  // Show fetching error if there's a server error.
-  useEffect(() => {
-    if (fetcher.data?.serverError) {
-      setFetchError(fetcher.data.serverError);
-    } else {
-      setFetchError(null);
-    }
-  }, [fetcher.data]);
-
-
-  // If register is successfull, redirect the user to the login page with a greet message.
-  if (fetcher.data?.success) {
-    return navigate(
-      `/login?message=${encodeURIComponent("Welcome, " + userInputs.username + "! You can log in now!")}&username=${userInputs.username}`,
-      { replace: true }
-    );
-  }
-
-  if (fetcher.state === "submitting") {
+  if (navigation.state === "submitting") {
     return <LoaderOne
       message="Processing user register, please wait..."
     />
   }
 
-  if (fetchError) {
+  if (actionData?.fail) {
     return <FetchError
       errorCode={"500"}
       errorMessage={fetchError}
@@ -71,9 +54,9 @@ export default function Register() {
   }
 
   return <main className="register">
-    {fetcher.data?.errors &&
-      <InputErrors errors={fetcher.data} />}
-    <fetcher.Form
+    {actionData?.failedValidation &&
+      <InputErrors errors={actionData.result} />}
+    <Form
       method="post"
       action="/register"
       className="form"
@@ -169,6 +152,6 @@ export default function Register() {
           Register!
         </Button>
       </fieldset>
-    </fetcher.Form>
+    </Form>
   </main>
 }

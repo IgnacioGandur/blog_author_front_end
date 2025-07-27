@@ -6,7 +6,6 @@ import {
 
 export default function DashboardLinks() {
     const userData = useRouteLoaderData("root");
-    console.log("user data in dashboard links:", userData);
     const links = userData?.user?.isAuthor ? [
         {
             icon: "account_circle",
