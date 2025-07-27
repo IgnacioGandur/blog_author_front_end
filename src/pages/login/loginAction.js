@@ -1,8 +1,6 @@
 import { redirect } from "react-router";
 export default async function loginAction({ request }) {
     try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
         const formData = await request.formData();
         const username = formData.get("username");
         const password = formData.get("password");

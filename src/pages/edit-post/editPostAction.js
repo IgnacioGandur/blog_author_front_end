@@ -2,7 +2,6 @@ import { redirect } from "react-router";
 
 export default async function editPostAction({ request, params }) {
     try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         const { postId } = params;
         const formData = await request.formData();
         const title = formData.get("title");

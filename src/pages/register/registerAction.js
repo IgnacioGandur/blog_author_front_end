@@ -2,8 +2,6 @@ import { redirect } from "react-router";
 
 export default async function registerAction({ request }) {
     try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
         const formData = await request.formData();
         const firstName = formData.get("firstName");
         const lastName = formData.get("lastName");

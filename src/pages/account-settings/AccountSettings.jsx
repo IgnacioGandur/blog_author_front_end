@@ -195,104 +195,102 @@ export default function AccountSettings() {
       )
     }
     {
-      navigation.state === "idle" ? (
-        <Form
-          className="edit-profile-info"
-          method="post"
-        >
-          <h2>
-            Edit Your Profile Info
-          </h2>
-          <fieldset
-            className="horizontal-fieldset"
-          >
-            <legend>
-              Names
-            </legend>
-            <CustomInput
-              googleIcon="id_card"
-              labelText="First Name"
-              inputType="text"
-              roundBorders={false}
-              inputName="firstName"
-              inputPlaceholder="John"
-              required={true}
-              value={userInputs.firstName}
-              onChange={handleUserInputs}
-              constraintsMessage="Between 3 and 30 characters, only letters and spaces."
-            />
-            <div className="vertical-separator"></div>
-            <CustomInput
-              googleIcon="id_card"
-              labelText="Last Name"
-              inputType="text"
-              roundBorders={false}
-              inputName="lastName"
-              inputPlaceholder="Doe"
-              required={true}
-              value={userInputs.lastName}
-              onChange={handleUserInputs}
-              constraintsMessage="Between 3 and 30 characters, only letters and spaces."
-            />
-          </fieldset>
-          <fieldset
-          >
-            <legend>
-              Profile Picture URL
-            </legend>
-            <CustomInput
-              googleIcon="photo"
-              labelText="Profile Picture URL"
-              inputType="url"
-              roundBorders={false}
-              inputName="profilePictureUrl"
-              inputPlaceholder="https://picsum.photos/200/300.jpg"
-              required={true}
-              value={userInputs.profilePictureUrl}
-              onChange={handleUserInputs}
-              constraintsMessage="A link that points to an image (jpg, jpeg, png, gif, bmp, or webp)."
-            />
-          </fieldset>
-          <fieldset
-            className="horizontal-fieldset"
-          >
-            <legend>
-              Update Your Password
-            </legend>
-            <CustomInput
-              googleIcon="lock"
-              labelText="Password"
-              inputType="password"
-              roundBorders={false}
-              inputName="password"
-              inputPlaceholder="*****"
-              required={false}
-              value={userInputs.password}
-              onChange={handleUserInputs}
-            />
-            <div className="vertical-separator"></div>
-            <CustomInput
-              googleIcon="lock_reset"
-              labelText="Confirm Password"
-              inputType="password"
-              roundBorders={false}
-              inputName="confirmPassword"
-              inputPlaceholder="*****"
-              required={false}
-              value={userInputs.confirmPassword}
-              onChange={handleUserInputs}
-            />
-          </fieldset>
-          <Button
-            type="submit"
-            onClick={scrollToTop}
-          >
-            Update Profile
-          </Button>
-        </Form>
-      ) : navigation.state === "submitting" ? (
+      navigation.state === "submitting" ? (
         <FormSubmitionLoader />
-      ) : null
+      ) : <Form
+        className="edit-profile-info"
+        method="post"
+      >
+        <h2>
+          Edit Your Profile Info
+        </h2>
+        <fieldset
+          className="horizontal-fieldset"
+        >
+          <legend>
+            Names
+          </legend>
+          <CustomInput
+            googleIcon="id_card"
+            labelText="First Name"
+            inputType="text"
+            roundBorders={false}
+            inputName="firstName"
+            inputPlaceholder="John"
+            required={true}
+            value={userInputs.firstName}
+            onChange={handleUserInputs}
+            constraintsMessage="Between 3 and 30 characters, only letters and spaces."
+          />
+          <div className="vertical-separator"></div>
+          <CustomInput
+            googleIcon="id_card"
+            labelText="Last Name"
+            inputType="text"
+            roundBorders={false}
+            inputName="lastName"
+            inputPlaceholder="Doe"
+            required={true}
+            value={userInputs.lastName}
+            onChange={handleUserInputs}
+            constraintsMessage="Between 3 and 30 characters, only letters and spaces."
+          />
+        </fieldset>
+        <fieldset
+        >
+          <legend>
+            Profile Picture URL
+          </legend>
+          <CustomInput
+            googleIcon="photo"
+            labelText="Profile Picture URL"
+            inputType="url"
+            roundBorders={false}
+            inputName="profilePictureUrl"
+            inputPlaceholder="https://picsum.photos/200/300.jpg"
+            required={true}
+            value={userInputs.profilePictureUrl}
+            onChange={handleUserInputs}
+            constraintsMessage="A link that points to an image (jpg, jpeg, png, gif, bmp, or webp)."
+          />
+        </fieldset>
+        <fieldset
+          className="horizontal-fieldset"
+        >
+          <legend>
+            Update Your Password
+          </legend>
+          <CustomInput
+            googleIcon="lock"
+            labelText="Password"
+            inputType="password"
+            roundBorders={false}
+            inputName="password"
+            inputPlaceholder="*****"
+            required={false}
+            value={userInputs.password}
+            onChange={handleUserInputs}
+          />
+          <div className="vertical-separator"></div>
+          <CustomInput
+            googleIcon="lock_reset"
+            labelText="Confirm Password"
+            inputType="password"
+            roundBorders={false}
+            inputName="confirmPassword"
+            inputPlaceholder="*****"
+            required={false}
+            value={userInputs.confirmPassword}
+            onChange={handleUserInputs}
+          />
+        </fieldset>
+        <Button
+          type="submit"
+          onClick={scrollToTop}
+        >
+          Update Profile
+        </Button>
+      </Form>
     }
   </main >
 }
