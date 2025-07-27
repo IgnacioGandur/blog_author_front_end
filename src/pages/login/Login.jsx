@@ -37,11 +37,9 @@ export default function Login() {
     }
   }, [])
 
-  useEffect(() => {
-    if (navigation?.state === "submitting") {
-      return <LoaderOne message="Processing author login, please wait..." />
-    }
-  }, []);
+  if (navigation?.state === "submitting") {
+    return <LoaderOne message="Processing author login, please wait..." />
+  }
 
   return <main className="login">
     <Form
