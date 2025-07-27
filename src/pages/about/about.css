@@ -22,6 +22,7 @@
         }
 
         .tools-container {
+            margin-top: var(--size-small);
             overflow: hidden;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
