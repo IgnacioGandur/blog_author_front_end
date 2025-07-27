@@ -1,6 +1,7 @@
 import "./register.css";
 import { useState } from "react";
 import {
+  useRouteLoaderData,
   useActionData,
   useNavigation,
   Form,
@@ -12,6 +13,7 @@ import LoaderOne from "../../components/loader-one/LoaderOne.jsx";
 import FetchError from "../../components/fetch-error/FetchError.jsx";
 
 export default function Register() {
+  const rootLoaderData = useRouteLoaderData("root");
   const navigation = useNavigation();
   const [fetchError, setFetchError] = useState(null);
   const [userInputs, setUserInputs] = useState({
@@ -61,6 +63,13 @@ export default function Register() {
       action="/register"
       className="form"
     >
+      {
+        rootLoaderData?.serverError && (
+          <p className="back-end-error-message">
+            {rootLoaderData.serverError}
+          </p>
+        )
+      }
       <fieldset>
         <legend>What's your name?</legend>
         <div className="wrapper">

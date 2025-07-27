@@ -4,6 +4,7 @@ import {
   useEffect
 } from "react";
 import {
+  useRouteLoaderData,
   useSearchParams,
   useNavigation,
   useActionData,
@@ -15,6 +16,7 @@ import InputErrors from "../../components/input-errors/InputErrors";
 import LoaderOne from "../../components/loader-one/LoaderOne";
 
 export default function Login() {
+  const routeLoaderData = useRouteLoaderData("root");
   const navigation = useNavigation();
   const actionData = useActionData();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,11 +43,18 @@ export default function Login() {
     return <LoaderOne message="Processing author login, please wait..." />
   }
 
+  console.log("route loader data is:", routeLoaderData);
+
   return <main className="login">
     <Form
       className="form"
       method="POST"
     >
+      {routeLoaderData?.serverError && (
+        <p className="back-end-error-message">
+          {routeLoaderData.serverError}
+        </p>
+      )}
       {actionData?.validationFail && (
         <InputErrors errors={actionData.result} />
       )}

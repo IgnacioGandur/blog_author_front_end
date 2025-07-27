@@ -7,6 +7,14 @@
     align-items: center;
     justify-content: center;
 
+    .back-end-error-message {
+        padding: var(--size-medium);
+        background-color: var(--color-error-dimmed);
+        border: 1px solid var(--color-error);
+        font-weight: var(--font-thick);
+        text-align: center;
+    }
+
     .form {
         flex: 1;
         display: flex;

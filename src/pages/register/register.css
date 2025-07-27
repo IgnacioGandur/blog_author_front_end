@@ -12,6 +12,14 @@
         gap: var(--size-small);
         width: fit-content;
 
+        .back-end-error-message {
+            background-color: var(--color-error-dimmed);
+            border: 1px solid var(--color-error);
+            padding: var(--size-medium);
+            font-weight: var(--font-thick);
+            text-align: center;
+        }
+
         fieldset {
             display: flex;
             flex-direction: column;
