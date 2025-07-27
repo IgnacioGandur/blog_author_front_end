@@ -8,7 +8,7 @@ import {
   useSearchParams,
   useFetcher,
 } from "react-router";
-import Fieldset from "../../components/fieldset/Fieldset";
+// import Fieldset from "../../components/fieldset/Fieldset";
 import CustomInput from "../../components/custom-input/CustomInput";
 import Button from "../../components/button/Button";
 import InputErrors from "../../components/input-errors/InputErrors";
@@ -81,17 +81,17 @@ export default function Login() {
         <InputErrors errors={fetcher.data} />
       )}
       {searchParams.get("message") && searchParams.get("username") && (
-        <Fieldset
-          legend="User registered successfully!"
-          className="registered-message"
+        <fieldset
         >
+          <legend>User registered successfully!</legend>
           {searchParams.get("message")}
-        </Fieldset>
+        </fieldset>
 
       )}
-      <Fieldset
-        legend="Log in"
-      >
+      <fieldset>
+        <legend>
+          Log in
+        </legend>
         <CustomInput
           googleIcon="account_circle"
           labelText="Username"
@@ -114,7 +114,7 @@ export default function Login() {
           value={userInputs.password}
           onChange={handleUserInput}
         />
-      </Fieldset>
+      </fieldset>
       <Button
         type="submit"
         roundBorders={false}
